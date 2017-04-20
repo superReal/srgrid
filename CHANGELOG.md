@@ -1,3 +1,3 @@
 # sR Grid Changelog
 
-## 1.0.0 (XX/XX/XX)
+## 1.0.0 (20/05/17)
