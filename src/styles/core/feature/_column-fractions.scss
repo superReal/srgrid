@@ -1,0 +1,147 @@
+////
+//// @group feature/column-fractions
+///
+
+/// Generate base of the column fractions feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $column-attr-value - Column attribute value
+/// @param {List} $column-fractions - Column fractions
+@mixin srgrid-generate-column-fractions-base(
+    $column-attr-name,
+    $column-attr-value,
+    $column-fractions
+) {
+    @each $column-fraction in $column-fractions {
+        $numerator: nth($column-fraction, 1);
+        $denominator: nth($column-fraction, 2);
+        $width: srgrid-round-percentage($numerator / $denominator * 100%);
+
+        $selector: srgrid-generate-attr-selector(
+            $column-attr-name,
+            srgrid-join-attr-values($column-attr-value, $numerator, $denominator)
+        );
+        #{$selector} {
+            flex-basis: $width;
+            max-width: $width;
+        }
+    }
+}
+
+/// Generate `regular` mode of the column fractions feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {List} $column-fractions - Column fractions
+@mixin srgrid-generate-column-fractions-regular-feature(
+    $column-attr-name,
+    $column-fractions
+) {
+    @include srgrid-generate-column-fractions-base(
+        $column-attr-name,
+        '',
+        $column-fractions
+    );
+}
+
+/// Generate `responsive` mode of the column fractions feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {List} $column-fractions - Column fractions
+@mixin srgrid-generate-column-fractions-responsive-feature(
+    $column-attr-name,
+    $column-fractions
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-column-fractions-base(
+                $column-attr-name,
+                $breakpoint-name,
+                $column-fractions
+        );
+    }
+}
+
+/// Generate `between` mode of the column fractions feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {List} $column-fractions - Column fractions
+@mixin srgrid-generate-column-fractions-between-feature(
+    $column-attr-name,
+    $column-fractions
+) {
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-column-fractions-base(
+                $column-attr-name,
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name),
+                $column-fractions
+        );
+    }
+}
+
+/// Generate `only` mode of the column fractions feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $only-attr-addition - Only attribute addition
+/// @param {List} $column-fractions - Column fractions
+@mixin srgrid-generate-column-fractions-only-feature(
+    $column-attr-name,
+    $only-attr-addition,
+    $column-fractions
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @each $column-fraction in $column-fractions {
+            @include srgrid-generate-column-fractions-base(
+                    $column-attr-name,
+                    srgrid-join-attr-values($breakpoint-name, $only-attr-addition),
+                    $column-fractions
+            );
+        }
+    }
+}
+
+/// Generate the column fractions feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-column-fractions-feature(
+        $grid-id
+) {
+    // Get feature variables
+    $column-fractions-feature: srgrid-get-grid-setting($grid-id, column-fractions-feature);
+    $column-attr-name: srgrid-get-grid-setting($grid-id, column-attr-name);
+    $column-fractions: srgrid-get-grid-setting($grid-id, column-fractions);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    $feature-check: srgrid-check-feature-settings('Column fractions', $column-fractions-feature);
+
+    @if index($column-fractions-feature, regular) {
+        @include srgrid-generate-column-fractions-regular-feature(
+                $column-attr-name,
+                $column-fractions
+        );
+    }
+
+    @if index($column-fractions-feature, responsive) {
+        @include srgrid-generate-column-fractions-responsive-feature(
+                $column-attr-name,
+                $column-fractions
+        );
+    }
+
+    @if index($column-fractions-feature, between) {
+        @include srgrid-generate-column-fractions-between-feature(
+                $column-attr-name,
+                $column-fractions
+        );
+    }
+
+    @if index($column-fractions-feature, only) {
+        @include srgrid-generate-column-fractions-only-feature(
+                $column-attr-name,
+                $only-attr-addition,
+                $column-fractions
+        );
+    }
+}

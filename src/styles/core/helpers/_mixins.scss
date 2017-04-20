@@ -1,0 +1,48 @@
+////
+//// @group helper/mixins
+///
+
+/// Content wrapper for `responsive` mode
+@mixin srgrid-generate-responsive-feature() {
+    @each $breakpoint-name in srbreakpoints-get-breakpoint-names() {
+        @include srbreakpoints-wrap-content-from($breakpoint-name) {
+            // Store temp variables
+            $srgrid-settings: srgrid-set-temp-setting(breakpoint-name, $breakpoint-name);
+            // Render content
+            @content;
+        }
+    }
+}
+
+/// Content wrapper for `between` mode
+@mixin srgrid-generate-between-feature() {
+    $breakpoint-names: srbreakpoints-get-breakpoint-names();
+    $breakpoint-length: length($breakpoint-names);
+    @each $start-breakpoint-name in $breakpoint-names {
+        $start-breakpoint-index: index($breakpoint-names, $start-breakpoint-name);
+        @if $start-breakpoint-index != $breakpoint-length {
+            @for $end-breakpoint-index from $start-breakpoint-index + 1 through $breakpoint-length {
+                $end-breakpoint-name: nth($breakpoint-names, $end-breakpoint-index);
+                @include srbreakpoints-wrap-content-between($start-breakpoint-name, $end-breakpoint-name) {
+                    // Store temp variables
+                    $srgrid-settings: srgrid-set-temp-setting(start-breakpoint-name, $start-breakpoint-name);
+                    $srgrid-settings: srgrid-set-temp-setting(end-breakpoint-name, $end-breakpoint-name);
+                    // Render content
+                    @content;
+                }
+            }
+        }
+    }
+}
+
+/// Content wrapper for `only` mode
+@mixin srgrid-generate-only-feature() {
+    @each $breakpoint-name in srbreakpoints-get-breakpoint-names() {
+        @include srbreakpoints-wrap-content-within($breakpoint-name) {
+            // Store temp variables
+            $srgrid-settings: srgrid-set-temp-setting(breakpoint-name, $breakpoint-name);
+            // Render content
+            @content;
+        }
+    }
+}

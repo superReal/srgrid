@@ -1,0 +1,217 @@
+////
+//// @group feature/align-column
+///
+
+/// Generate base of the align column feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $top-col-attr-value - Top column attribute value
+/// @param {String} $middle-col-attr-value - Middle column attribute value
+/// @param {String} $bottom-col-attr-value - Bottom column attribute value
+/// @param {String} $stretch-col-attr-value - Stretch column attribute value
+@mixin srgrid-generate-align-column-base(
+    $col-attr-name,
+    $top-col-attr-value,
+    $middle-col-attr-value,
+    $bottom-col-attr-value,
+    $stretch-col-attr-value
+) {
+    $top-selector: srgrid-generate-attr-selector($col-attr-name, $top-col-attr-value);
+    #{$top-selector} {
+        align-self: flex-start;
+    }
+
+    $middle-selector: srgrid-generate-attr-selector($col-attr-name, $middle-col-attr-value);
+    #{$middle-selector} {
+        align-self: center;
+    }
+
+    $bottom-selector: srgrid-generate-attr-selector($col-attr-name, $bottom-col-attr-value);
+    #{$bottom-selector} {
+        align-self: flex-end;
+    }
+
+    $stretch-selector: srgrid-generate-attr-selector($col-attr-name, $stretch-col-attr-value);
+    #{$stretch-selector} {
+        align-self: stretch;
+    }
+}
+
+/// Generate `regular` mode of the align column feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $align-column-top-attr-addition - Align column top attribute addition
+/// @param {String} $align-column-middle-attr-addition - Align column middle attribute addition
+/// @param {String} $align-column-bottom-attr-addition - Align column bottom attribute addition
+/// @param {String} $align-column-stretch-attr-addition - Align column stretch attribute addition
+@mixin srgrid-generate-align-column-regular-feature(
+    $column-attr-name,
+    $align-column-top-attr-addition,
+    $align-column-middle-attr-addition,
+    $align-column-bottom-attr-addition,
+    $align-column-stretch-attr-addition
+) {
+    @include srgrid-generate-align-column-base (
+        $column-attr-name,
+        $align-column-top-attr-addition,
+        $align-column-middle-attr-addition,
+        $align-column-bottom-attr-addition,
+        $align-column-stretch-attr-addition
+    );
+}
+
+/// Generate `responsive` mode of the align column feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $align-column-top-attr-addition - Align column top attribute addition
+/// @param {String} $align-column-middle-attr-addition - Align column middle attribute addition
+/// @param {String} $align-column-bottom-attr-addition - Align column bottom attribute addition
+/// @param {String} $align-column-stretch-attr-addition - Align column stretch attribute addition
+@mixin srgrid-generate-align-column-responsive-feature(
+    $column-attr-name,
+    $align-column-top-attr-addition,
+    $align-column-middle-attr-addition,
+    $align-column-bottom-attr-addition,
+    $align-column-stretch-attr-addition
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-align-column-base (
+                $column-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $align-column-top-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $align-column-middle-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $align-column-bottom-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $align-column-stretch-attr-addition)
+        );
+    }
+}
+
+/// Generate `between` mode of the align column feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $align-column-top-attr-addition - Align column top attribute addition
+/// @param {String} $align-column-middle-attr-addition - Align column middle attribute addition
+/// @param {String} $align-column-bottom-attr-addition - Align column bottom attribute addition
+/// @param {String} $align-column-stretch-attr-addition - Align column stretch attribute addition
+@mixin srgrid-generate-align-column-between-feature(
+    $column-attr-name,
+    $align-column-top-attr-addition,
+    $align-column-middle-attr-addition,
+    $align-column-bottom-attr-addition,
+    $align-column-stretch-attr-addition
+) {
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-align-column-base (
+                $column-attr-name,
+                srgrid-join-attr-values(
+                    $start-breakpoint-name,
+                    $end-breakpoint-name,
+                    $align-column-top-attr-addition
+                ),
+                srgrid-join-attr-values(
+                    $start-breakpoint-name,
+                    $end-breakpoint-name,
+                    $align-column-middle-attr-addition
+                ),
+                srgrid-join-attr-values(
+                    $start-breakpoint-name,
+                    $end-breakpoint-name,
+                    $align-column-bottom-attr-addition
+                ),
+                srgrid-join-attr-values(
+                    $start-breakpoint-name,
+                    $end-breakpoint-name,
+                    $align-column-stretch-attr-addition
+                )
+        );
+    }
+}
+
+/// Generate `only` mode of the align column feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $align-column-top-attr-addition - Align column top attribute addition
+/// @param {String} $align-column-middle-attr-addition - Align column middle attribute addition
+/// @param {String} $align-column-bottom-attr-addition - Align column bottom attribute addition
+/// @param {String} $align-column-stretch-attr-addition - Align column stretch attribute addition
+/// @param {String} $only-attr-addition - Only attribute addition
+@mixin srgrid-generate-align-only-column-feature(
+    $column-attr-name,
+    $align-column-top-attr-addition,
+    $align-column-middle-attr-addition,
+    $align-column-bottom-attr-addition,
+    $align-column-stretch-attr-addition,
+    $only-attr-addition
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-align-column-base (
+                $column-attr-name,
+                '#{$breakpoint-name}-#{$only-attr-addition}-#{$align-column-top-attr-addition}',
+                '#{$breakpoint-name}-#{$only-attr-addition}-#{$align-column-middle-attr-addition}',
+                '#{$breakpoint-name}-#{$only-attr-addition}-#{$align-column-bottom-attr-addition}',
+                '#{$breakpoint-name}-#{$only-attr-addition}-#{$align-column-stretch-attr-addition}'
+        );
+    }
+}
+
+/// Generate the align column feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-align-column-feature(
+        $grid-id
+) {
+    // Get feature variables
+    $align-column-feature: srgrid-get-grid-setting($grid-id, align-column-feature);
+    $column-attr-name: srgrid-get-grid-setting($grid-id, column-attr-name);
+    $align-column-top-attr-addition: srgrid-get-grid-setting($grid-id, align-column-top-attr-addition);
+    $align-column-middle-attr-addition: srgrid-get-grid-setting($grid-id, align-column-middle-attr-addition);
+    $align-column-bottom-attr-addition: srgrid-get-grid-setting($grid-id, align-column-bottom-attr-addition);
+    $align-column-stretch-attr-addition: srgrid-get-grid-setting($grid-id, align-column-stretch-attr-addition);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    $feature-check: srgrid-check-feature-settings('Align column', $align-column-feature);
+
+    @if index($align-column-feature, regular) {
+        @include srgrid-generate-align-column-regular-feature(
+                $column-attr-name,
+                $align-column-top-attr-addition,
+                $align-column-middle-attr-addition,
+                $align-column-bottom-attr-addition,
+                $align-column-stretch-attr-addition
+        );
+    }
+
+    @if index($align-column-feature, responsive) {
+        @include srgrid-generate-align-column-responsive-feature(
+                $column-attr-name,
+                $align-column-top-attr-addition,
+                $align-column-middle-attr-addition,
+                $align-column-bottom-attr-addition,
+                $align-column-stretch-attr-addition
+        );
+    }
+
+    @if index($align-column-feature, between) {
+        @include srgrid-generate-align-column-between-feature(
+                $column-attr-name,
+                $align-column-top-attr-addition,
+                $align-column-middle-attr-addition,
+                $align-column-bottom-attr-addition,
+                $align-column-stretch-attr-addition
+        );
+    }
+
+    @if index($align-column-feature, only) {
+        @include srgrid-generate-align-only-column-feature(
+                $column-attr-name,
+                $align-column-top-attr-addition,
+                $align-column-middle-attr-addition,
+                $align-column-bottom-attr-addition,
+                $align-column-stretch-attr-addition,
+                $only-attr-addition
+        );
+    }
+}

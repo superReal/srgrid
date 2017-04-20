@@ -1,0 +1,382 @@
+////
+/// @group general
+////
+
+@import 'core/helpers/functions';
+@import 'core/helpers/mixins';
+
+@import 'core/base';
+
+@import 'core/feature/wrapper';
+@import 'core/feature/hide';
+@import 'core/feature/fluid';
+@import 'core/feature/offset';
+@import 'core/feature/distribution';
+@import 'core/feature/reverse';
+@import 'core/feature/reorder';
+@import 'core/feature/alignment';
+@import 'core/feature/align-column';
+@import 'core/feature/block';
+@import 'core/feature/gapless';
+@import 'core/feature/column-fractions';
+
+/// Create grid
+/// @param {String} $grid-id ['srgrid'] - Grid id
+/// @param {String} $grid-attr-name ['data-#($grid)-id'] - Grid attribute name
+/// @param {String} $row-attr-name ['data-#($grid-id)-row'] - Row attribute name
+/// @param {String} $column-attr-name ['data-#($grid-id)-col'] - Column attribute name
+/// @param {String} $only-attr-addition ['only'] - Only attribute addition
+/// @param {Number|Map} $gutter-widths [(xs: 5, s: 5, m: 10, l: 15m xl: 20)] - Gutter widths
+/// @param {Number} $column-count [36] - Column count
+/// @param {Boolean} $wrapper-feature [false] - Enable Wrapper feature
+/// @param {String} $wrapper-attr-name ['data-#($grid-id)-wrapper'] - Wrapper attribute name
+/// @param {Map} $wrapper-max-widths [(xl: 1200)] - Wrapper max widths
+/// @param {Null|List} $hide-feature [null] - Hide feature modes
+/// @param {String} $hide-attr-name ['data-#($grid-id)-hide'] - Hide attribute name
+/// @param {Null|List} $fluid-feature [null] - Fluid feature modes
+/// @param {Null|List} $offset-feature [null] - Offset feature modes
+/// @param {String} $offset-attr-addition ['offset'] - Offset attribute addition
+/// @param {Null|List} $distribution-feature [null] - Distribution feature modes
+/// @param {String} $distribution-around-attr-addition ['around'] - Distribution around attribute addition
+/// @param {String} $distribution-between-attr-addition ['between'] - Distribution between attribute addition
+/// @param {Null|List} $reverse-feature [null] - Reverse feature modes
+/// @param {String} $reverse-attr-addition ['reverse'] - Reverse attribute addition
+/// @param {Null|List} $reorder-feature [null] - Reorder feature modes
+/// @param {String} $reorder-attr-addition ['reorder'] - Reorder attribute addition
+/// @param {Null|List} $alignment-feature [null] - Alignment feature modes
+/// @param {String} $alignment-start-attr-addition ['start'] - Alignment start attribute addition
+/// @param {String} $alignment-center-attr-addition ['center'] - Alignment center attribute addition
+/// @param {String} $alignment-end-attr-addition ['end'] - Alignment end attribute addition
+/// @param {String} $alignment-top-attr-addition ['top'] - Alignment top attribute addition
+/// @param {String} $alignment-middle-attr-addition ['middle'] - Alignment middle attribute addition
+/// @param {String} $alignment-bottom-attr-addition ['bottom'] - Alignment bottom attribute addition
+/// @param {String} $alignment-stretch-attr-addition ['stretch'] - Alignment stretch attribute addition
+/// @param {Null|List} $align-column-feature [null] - Align column feature modes
+/// @param {String} $align-column-top-attr-addition ['top'] - Align column top attribute addition
+/// @param {String} $align-column-middle-attr-addition ['middle'] - Align column middle attribute addition
+/// @param {String} $align-column-bottom-attr-addition ['bottom'] - Align column bottom attribute addition
+/// @param {String} $align-column-stretch-attr-addition ['stretch'] - Align column stretch attribute addition
+/// @param {Null|List} $block-feature [null] - Block feature modes
+/// @param {String} $block-attr-addition ['block'] - Block attribute addition
+/// @param {Null|List} $gapless-feature [null] - Gapless feature modes
+/// @param {Null|List} $gapless-attr-addition ['gapless'] - Gapless attribute addition
+/// @param {Null|List} $column-fractions-feature [null] - Column fractions feature modes
+/// @param {Map} $column-fractions [(1 2, 1 3, 1 4, 2 3, 3 4)] - Column fractions
+@mixin srgrid-create-grid(
+    // Grid id
+    $grid-id: 'srgrid',
+
+    // Grid attribute names
+    $grid-attr-name: 'data-#{$grid-id}', // data-srgrid
+    $row-attr-name: 'data-#{$grid-id}-row', // data-srgrid-row
+    $column-attr-name: 'data-#{$grid-id}-col', // data-srgrid-col
+    $only-attr-addition: 'only',
+
+    // Metrics
+    $gutter-widths: (
+        xs: 5,
+        s: 5,
+        m: 10,
+        l: 15,
+        xl: 20
+    ),
+    $column-count: 36,
+
+    // Wrapper feature
+    $wrapper-feature: false,
+    $wrapper-attr-name: 'data-#{$grid-id}-wrapper', // data-srgrid-wrapper
+    $wrapper-max-widths: (
+        xl: 1200
+    ),
+
+    // Hide feature
+    $hide-feature: null,
+    $hide-attr-name: 'data-#{$grid-id}-hide', // data-srgrid-hide
+
+    // Fluid feature
+    $fluid-feature: null,
+
+    // Offset feature
+    $offset-feature: null,
+    $offset-attr-addition: 'offset',
+    $offset-attr-addition: 'offset',
+
+    // Distribution feature
+    $distribution-feature: null,
+    $distribution-around-attr-addition: 'around',
+    $distribution-between-attr-addition: 'between',
+
+    // Reverse feature
+    $reverse-feature: null,
+    $reverse-attr-addition: 'reverse',
+
+    // Reorder feature
+    $reorder-feature: null,
+    $reorder-attr-addition: 'reorder',
+
+    // Alignment feature
+    $alignment-feature: null,
+    $alignment-start-attr-addition: 'start',
+    $alignment-center-attr-addition: 'center',
+    $alignment-end-attr-addition: 'end',
+    $alignment-top-attr-addition: 'top',
+    $alignment-middle-attr-addition: 'middle',
+    $alignment-bottom-attr-addition: 'bottom',
+    $alignment-stretch-attr-addition: 'stretch',
+
+    // Align column feature
+    $align-column-feature: null,
+    $align-column-top-attr-addition: 'top',
+    $align-column-middle-attr-addition: 'middle',
+    $align-column-bottom-attr-addition: 'bottom',
+    $align-column-stretch-attr-addition: 'stretch',
+
+    // Block feature
+    $block-feature: null,
+    $block-attr-addition: 'block',
+
+    // Gapless feature
+    $gapless-feature: null,
+    $gapless-attr-addition: 'gapless',
+
+    // Column fractions feature
+    $column-fractions-feature: null,
+    $column-fractions: (1 2, 1 3, 1 4, 2 3, 3 4)
+) {
+    // Check for sR Breakpoints module
+    @if global_variable_exists(srbreakpoints) == false {
+        @error 'Please initialize sR Breakpoints module before using sR Grid!';
+    }
+
+    // Create a global variable `$srgrid` on the first use
+    @if srgrid-is-initialized() == false {
+        /// Create a global variable for sR Grid settings
+        $srgrid: () !global;
+    }
+
+    // Check for reserved or already existing grid ids
+    @if $grid-id == '__temp__' {
+        @error 'Grid id `__temp__` is reserved for temporary variables. Please choose another `$grid-id`!';
+    }
+    @if srgrid-grid-id-exists($grid-id) {
+        @error 'Grid id `#{$grid-id}` already exists.';
+    }
+
+    // Compare the global breakpoint names with those declared within `$gutter-widths`
+    @if type_of($gutter-widths) == 'map' {
+        $breakpoints: srbreakpoints-get-breakpoints();
+        $gutter-breakpoint-names: map_keys($gutter-widths);
+        @each $gutter-breakpoint-name in $gutter-breakpoint-names {
+            @if map-has-key($breakpoints, $gutter-breakpoint-name) == false {
+                @error 'The breakpoint `#{$gutter-breakpoint-name}` which declared at `$gutter-widths` was not found!';
+            }
+        }
+    }
+
+    // Store grid variables
+    $srgrid-settings: srgrid-set-grid-setting($grid-id, grid-attr-name, $grid-attr-name);
+    $srgrid-settings: srgrid-set-grid-setting($grid-id, row-attr-name, $row-attr-name);
+    $srgrid-settings: srgrid-set-grid-setting($grid-id, column-attr-name, $column-attr-name);
+    $srgrid-settings: srgrid-set-grid-setting($grid-id, only-attr-addition, $only-attr-addition);
+    $srgrid-settings: srgrid-set-grid-setting($grid-id, gutter-widths, $gutter-widths);
+    $srgrid-settings: srgrid-set-grid-setting($grid-id, column-count, $column-count);
+
+    // Base
+    @include srgrid-generate-base(
+            $grid-id
+    );
+
+    /* sR Grid features */
+
+    // Wrapper feature
+    @if $wrapper-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, wrapper-feature, $wrapper-feature);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, wrapper-attr-name, $wrapper-attr-name);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, wrapper-max-widths, $wrapper-max-widths);
+        // Generate feature
+        @include srgrid-generate-wrapper-feature($grid-id);
+    }
+
+    // Hide feature
+    @if $hide-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, hide-feature, $hide-feature);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, hide-attr-name, $hide-attr-name);
+        // Generate feature
+        @include srgrid-generate-hide-feature($grid-id);
+    }
+
+    // Fluid feature
+    @if $fluid-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, fluid-feature, $fluid-feature);
+        // Generate feature
+        @include srgrid-generate-fluid-feature($grid-id);
+    }
+
+    // Offset feature
+    @if $offset-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, offset-feature, $offset-feature);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, offset-attr-addition, $offset-attr-addition);
+        // Generate feature
+        @include srgrid-generate-offset-feature($grid-id);
+    }
+
+    // Distribution feature
+    @if $distribution-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            distribution-feature,
+            $distribution-feature
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            distribution-around-attr-addition,
+            $distribution-around-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            distribution-between-attr-addition,
+            $distribution-between-attr-addition
+        );
+        // Generate feature
+        @include srgrid-generate-distribution-feature($grid-id);
+    }
+
+    // Reverse feature
+    @if $reverse-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, reverse-feature, $reverse-feature);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, reverse-attr-addition, $reverse-attr-addition);
+        // Generate feature
+        @include srgrid-generate-reverse-feature($grid-id);
+    }
+
+    // Reorder feature
+    @if $reorder-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, reorder-feature, $reorder-feature);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, reorder-attr-addition, $reorder-attr-addition);
+        // Generate feature
+        @include srgrid-generate-reorder-feature($grid-id);
+    }
+
+    // Alignment feature
+    @if $alignment-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            alignment-feature,
+            $alignment-feature
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            alignment-start-attr-addition,
+            $alignment-start-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            alignment-center-attr-addition,
+            $alignment-center-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            alignment-end-attr-addition,
+            $alignment-end-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            alignment-top-attr-addition,
+            $alignment-top-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            alignment-middle-attr-addition,
+            $alignment-middle-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            alignment-bottom-attr-addition,
+            $alignment-bottom-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            alignment-stretch-attr-addition,
+            $alignment-stretch-attr-addition
+        );
+        // Generate feature
+        @include srgrid-generate-alignment-feature($grid-id);
+    }
+
+    // Align column feature
+    @if $align-column-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            align-column-feature,
+            $align-column-feature
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            align-column-top-attr-addition,
+            $align-column-top-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            align-column-middle-attr-addition,
+            $align-column-middle-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            align-column-bottom-attr-addition,
+            $align-column-bottom-attr-addition
+        );
+        $srgrid-settings: srgrid-set-grid-setting(
+            $grid-id,
+            align-column-stretch-attr-addition,
+            $align-column-stretch-attr-addition
+        );
+        // Generate feature
+        @include srgrid-generate-align-column-feature($grid-id);
+    }
+
+    // Block feature
+    @if $block-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, block-feature, $block-feature);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, row-attr-name, $row-attr-name);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, column-attr-name, $column-attr-name);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, block-attr-addition, $block-attr-addition);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, column-count, $column-count);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, only-attr-addition, $only-attr-addition);
+        // Generate feature
+        @include srgrid-generate-block-feature($grid-id);
+    }
+
+    // Gapless feature
+    @if $gapless-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, gapless-feature, $gapless-feature);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, row-attr-name, $row-attr-name);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, column-attr-name, $column-attr-name);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, gapless-attr-addition, $gapless-attr-addition);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, only-attr-addition, $only-attr-addition);
+        // Generate feature
+        @include srgrid-generate-gapless-feature($grid-id);
+    }
+
+    // Column fractions feature
+    @if $column-fractions-feature {
+        // Store feature variables
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, column-fractions-feature, $column-fractions-feature);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, column-attr-name, $column-attr-name);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, column-fractions, $column-fractions);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, gutter-widths, $gutter-widths);
+        $srgrid-settings: srgrid-set-grid-setting($grid-id, only-attr-addition, $only-attr-addition);
+        // Generate feature
+        @include srgrid-generate-column-fractions-feature($grid-id);
+    }
+}

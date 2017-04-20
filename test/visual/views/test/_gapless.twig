@@ -1,0 +1,87 @@
+<h2>Gapless Feature</h2>
+
+<section id="test_gapless_regular">
+    <h3>Regular</h3>
+
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Default</h4>
+        <div {{ sRGrid.rowAttrName }}>
+            {% for i in 1..3 %}
+                <div {{ sRGrid.columnAttrName }}>
+                    <div class="test"></div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h4>Gapless</h4>
+        <div class="test-wrapper">
+            {% set rowAttrValue = sRGrid.gaplessInfix %}
+            <div {{ sRGrid.rowAttrName }}="{{ rowAttrValue }}">
+                {% for i in 1..3 %}
+                    <div {{ sRGrid.columnAttrName }}>
+                        <div class="test" data-test-text="{{ rowAttrValue }}"></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="test_gapless_responsive">
+    <h3>Responsive</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames  %}
+
+                {% set rowAttrValue = breakpointName ~ "-" ~ sRGrid.gaplessInfix %}
+                <div {{ sRGrid.rowAttrName }}="{{ rowAttrValue }}">
+                    {% for i in 1..3 %}
+                        <div {{ sRGrid.columnAttrName }}>
+                            <div class="test" data-test-text="{{ rowAttrValue }}"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_gapless_between">
+    <h3>Between</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% set startBreakpointName = sRBreakpoints.breakpointNames[0] %}
+            {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% if loop.first == false %}
+                    {% set endBreakpointName = sRBreakpoints.breakpointNames[loop.index - 1] %}
+                    {% set rowAttrValue = startBreakpointName ~ "-" ~ endBreakpointName ~ "-" ~ sRGrid.gaplessInfix %}
+                    <div {{ sRGrid.rowAttrName }}="{{ rowAttrValue }}">
+                        {% for i in 1..3 %}
+                            <div {{ sRGrid.columnAttrName }}>
+                                <div class="test" data-test-text="{{ rowAttrValue }}"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_gapless_only">
+    <h3>Only</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames %}
+                {% set rowAttrValue = breakpointName ~ "-" ~ sRGrid.onlyInfix ~ "-" ~ sRGrid.gaplessInfix %}
+                <div {{ sRGrid.rowAttrName }}="{{ rowAttrValue }}">
+                    {% for i in 1..3 %}
+                        <div {{ sRGrid.columnAttrName }}>
+                            <div class="test" data-test-text="{{ rowAttrValue }}"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

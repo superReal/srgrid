@@ -1,0 +1,75 @@
+<h2>Column Fractions</h2>
+
+<section id="test_column-fractions_regular">
+    <h3>Regular</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% for columnFraction in sRGrid.columnFractions %}
+                <div {{ sRGrid.rowAttrName }}>
+                    {% set columnAttrValue = columnFraction %}
+                    <div {{ sRGrid.columnAttrName }}="{{ columnAttrValue }}">
+                        <div class="test" data-test-text="{{ columnAttrValue }}"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_column-fractions_responsive">
+    <h3>Responsive</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames  %}
+                {% for columnFraction in sRGrid.columnFractions %}
+                    <div {{ sRGrid.rowAttrName }}>
+                        {% set columnAttrValue = breakpointName ~ "-" ~ columnFraction %}
+                        <div {{ sRGrid.columnAttrName }}="{{ columnAttrValue }}">
+                            <div class="test" data-test-text="{{ columnAttrValue }}"></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_column-fractions_between">
+    <h3>Between</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% set startBreakpointName = sRBreakpoints.breakpointNames[0] %}
+                {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% if loop.first == false %}
+                    {% set endBreakpointName = sRBreakpoints.breakpointNames[loop.index - 1] %}
+                    {% for columnFraction in sRGrid.columnFractions %}
+                        <div {{ sRGrid.rowAttrName }}>
+                            {% set columnAttrValue = startBreakpointName ~ "-" ~ endBreakpointName ~ "-" ~ columnFraction %}
+                            <div {{ sRGrid.columnAttrName }}="{{ columnAttrValue }}">
+                                <div class="test" data-test-text="{{ columnAttrValue }}"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_column-fractions_only">
+    <h3>Only</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames %}
+                {% for columnFraction in sRGrid.columnFractions %}
+                    <div {{ sRGrid.rowAttrName }}>
+                        {% set columnAttrValue = breakpointName ~ "-" ~ sRGrid.onlyInfix ~ "-" ~ columnFraction %}
+                        <div {{ sRGrid.columnAttrName }}="{{ columnAttrValue }}">
+                            <div class="test" data-test-text="{{ columnAttrValue }}"></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

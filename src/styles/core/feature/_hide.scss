@@ -1,0 +1,120 @@
+////
+//// @group feature/hide
+///
+
+/// Generate base of the hide feature
+/// @param {String} $hide-attr-name - Hide attribute name
+/// @param {Null|String} $hide-attr-value [null] - Hide attribute value
+@mixin srgrid-generate-hide-base(
+    $hide-attr-name,
+    $hide-attr-value: null
+) {
+    $selector: srgrid-generate-attr-selector($hide-attr-name, $hide-attr-value);
+    #{$selector} {
+        display: none;
+    }
+}
+
+/// Generate `regular` mode of the hide feature
+/// @param {String} $hide-attr-name - Hide attribute name
+@mixin srgrid-generate-hide-regular-feature (
+    $hide-attr-name
+) {
+    @include srgrid-generate-hide-base(
+            $hide-attr-name,
+            ''
+    );
+}
+
+/// Generate `responsive` mode of the hide feature
+/// @param {String} $hide-attr-name - Hide attribute name
+@mixin srgrid-generate-hide-responsive-feature(
+    $hide-attr-name
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srbreakpoints-wrap-content-from($breakpoint-name) {
+            @include srgrid-generate-hide-base(
+                    $hide-attr-name,
+                    $breakpoint-name
+            );
+        }
+    }
+}
+
+/// Generate `between` mode of the hide feature
+/// @param {String} $hide-attr-name - Hide attribute name
+@mixin srgrid-generate-hide-between-feature(
+    $hide-attr-name
+) {
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-hide-base(
+                $hide-attr-name,
+                '#{$start-breakpoint-name}-#{$end-breakpoint-name}'
+        );
+    }
+}
+
+/// Generate `only` mode of the hide feature
+/// @param {String} $hide-attr-name - Hide attribute name
+/// @param {String} $only-attr-addition - Only attribute addition
+@mixin srgrid-generate-hide-only-feature(
+    $hide-attr-name,
+    $only-attr-addition
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-hide-base(
+                $hide-attr-name,
+                '#{$breakpoint-name}-#{$only-attr-addition}'
+        );
+    }
+}
+
+/// Generate the hide feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-hide-feature(
+    $grid-id
+) {
+    // Get feature variables
+    $hide-feature: srgrid-get-grid-setting($grid-id, hide-feature);
+    $hide-attr-name: srgrid-get-grid-setting($grid-id, hide-attr-name);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    // Check feature settings
+    $feature-check: srgrid-check-feature-settings('Hide', $hide-feature);
+
+    // Generate feature
+    @if index($hide-feature, regular) {
+        @include srgrid-generate-hide-regular-feature(
+                $hide-attr-name
+        );
+    }
+
+    @if index($hide-feature, responsive) {
+        @include srgrid-generate-hide-responsive-feature(
+                $hide-attr-name
+        );
+    }
+
+    @if index($hide-feature, between) {
+        @include srgrid-generate-hide-between-feature(
+                $hide-attr-name
+        );
+    }
+
+    @if index($hide-feature, only) {
+        @include srgrid-generate-hide-only-feature(
+                $hide-attr-name,
+                $only-attr-addition
+        );
+    }
+}

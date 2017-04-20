@@ -1,0 +1,98 @@
+<h2>Align Column</h2>
+
+<section id="test_align-column_regular">
+    <h3>Regular</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            <div {{ sRGrid.rowAttrName }}>
+                <div {{ sRGrid.columnAttrName }}>
+                    <div class="test test_large"></div>
+                </div>
+                <div {{ sRGrid.columnAttrName }}>
+                    <div class="test" data-test-text="Default"></div>
+                </div>
+                {% for alignColumnInfix in sRGrid.alignColumnInfixes %}
+                    <div {{ sRGrid.columnAttrName }}="{{ alignColumnInfix }}">
+                        <div class="test" data-test-text="{{ alignColumnInfix }}"></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="test_align-column_responsive">
+    <h3>Responsive</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames  %}
+                <div {{ sRGrid.rowAttrName }}>
+                    <div {{ sRGrid.columnAttrName }}>
+                        <div class="test test_large"></div>
+                    </div>
+                    <div {{ sRGrid.columnAttrName }}>
+                        <div class="test" data-test-text="Default"></div>
+                    </div>
+                    {% for alignColumnInfix in sRGrid.alignColumnInfixes %}
+                        {% set colAttrValue = breakpointName ~ "-" ~ alignColumnInfix %}
+                        <div {{ sRGrid.columnAttrName }}="{{ colAttrValue }}">
+                           <div class="test" data-test-text="{{ colAttrValue }}"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_align-column_between">
+    <h3>Between</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% set startBreakpointName = sRBreakpoints.breakpointNames[0] %}
+            {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% if loop.first == false %}
+                    {% set endBreakpointName = sRBreakpoints.breakpointNames[loop.index - 1] %}
+                    <div {{ sRGrid.rowAttrName }}>
+                        <div {{ sRGrid.columnAttrName }}>
+                            <div class="test test_large"></div>
+                        </div>
+                        <div {{ sRGrid.columnAttrName }}>
+                            <div class="test" data-test-text="Default"></div>
+                        </div>
+                        {% for alignColumnInfix in sRGrid.alignColumnInfixes %}
+                            {% set colAttrValue = startBreakpointName ~ "-" ~ endBreakpointName ~ "-" ~ alignColumnInfix %}
+                            <div {{ sRGrid.columnAttrName }}="{{ colAttrValue }}">
+                                <div class="test" data-test-text="{{ colAttrValue }}"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_align-column_only">
+    <h3>Only</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames %}
+                <div {{ sRGrid.rowAttrName }}>
+                    <div {{ sRGrid.columnAttrName }}>
+                        <div class="test test_large"></div>
+                    </div>
+                    <div {{ sRGrid.columnAttrName }}>
+                        <div class="test" data-test-text="Default"></div>
+                    </div>
+                    {% for alignColumnInfix in sRGrid.alignColumnInfixes %}
+                        {% set colAttrValue = breakpointName ~ "-" ~ sRGrid.onlyInfix ~ "-" ~ alignColumnInfix %}
+                        <div {{ sRGrid.columnAttrName }}="{{ colAttrValue }}">
+                            <div class="test" data-test-text="{{ colAttrValue }}"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

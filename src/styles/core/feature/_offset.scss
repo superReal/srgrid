@@ -1,0 +1,159 @@
+////
+//// @group feature/offset
+///
+
+/// Generate base of the offset feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $offset-column-attr-value - Offset column attribute value
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-offset-feature-base(
+    $column-attr-name,
+    $offset-column-attr-value,
+    $column-count
+) {
+    @for $column-index from 0 through $column-count - 1 {
+        $selector: srgrid-generate-attr-selector(
+                $column-attr-name,
+                    srgrid-join-attr-values($offset-column-attr-value, $column-index)
+        );
+        #{$selector} {
+            $column-margin-left: 0; // Reset offset feature
+            @if $column-index != 0 {
+                $column-margin-left: srgrid-round-percentage(100% / $column-count * $column-index);
+            }
+
+            margin-left: $column-margin-left;
+        }
+    }
+}
+
+/// Generate `regular` mode of the offset feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $offset-attr-addition - Offset attribute addition
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-offset-regular-feature(
+        $column-attr-name,
+        $offset-attr-addition,
+        $column-count
+) {
+    @include srgrid-generate-offset-feature-base(
+            $column-attr-name,
+            $offset-attr-addition,
+            $column-count
+    );
+}
+
+/// Generate `responsive` mode of the offset feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $offset-attr-addition - Offset attribute addition
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-offset-responsive-feature(
+        $column-attr-name,
+        $offset-attr-addition,
+        $column-count
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-offset-feature-base(
+                $column-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $offset-attr-addition),
+                $column-count
+        );
+    }
+}
+
+/// Generate `between` mode of the offset feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $offset-attr-addition - Offset attribute addition
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-offset-between-feature(
+    $column-attr-name,
+    $offset-attr-addition,
+    $column-count
+) {
+
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-offset-feature-base(
+                $column-attr-name,
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $offset-attr-addition),
+                $column-count
+        );
+    }
+}
+
+/// Generate `only` mode of the offset feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $offset-attr-addition - Offset attribute addition
+/// @param {String} $only-attr-addition - Only attribute addition
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-offset-only-feature(
+        $column-attr-name,
+        $offset-attr-addition,
+        $only-attr-addition,
+        $column-count
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-offset-feature-base(
+                $column-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $offset-attr-addition),
+                $column-count
+        );
+    }
+}
+
+/// Generate the offset feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-offset-feature(
+        $grid-id
+) {
+    // Get feature variables
+    $offset-feature: srgrid-get-grid-setting($grid-id, offset-feature);
+    $column-attr-name: srgrid-get-grid-setting($grid-id, column-attr-name);
+    $offset-attr-addition: srgrid-get-grid-setting($grid-id, offset-attr-addition);
+    $column-count: srgrid-get-grid-setting($grid-id, column-count);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    $feature-check: srgrid-check-feature-settings('Offset', $offset-feature);
+
+    @if index($offset-feature, regular) {
+        @include srgrid-generate-offset-regular-feature(
+                $column-attr-name,
+                $offset-attr-addition,
+                $column-count
+        );
+    }
+
+    @if index($offset-feature, responsive) {
+        @include srgrid-generate-offset-responsive-feature(
+                $column-attr-name,
+                $offset-attr-addition,
+                $column-count
+        );
+    }
+
+    @if index($offset-feature, between) {
+        @include srgrid-generate-offset-between-feature(
+                $column-attr-name,
+                $offset-attr-addition,
+                $column-count
+        );
+    }
+
+    @if index($offset-feature, only) {
+        @include srgrid-generate-offset-only-feature(
+                $column-attr-name,
+                $offset-attr-addition,
+                $only-attr-addition,
+                $column-count
+        );
+    }
+}

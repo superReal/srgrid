@@ -1,0 +1,72 @@
+<h2>Nested Grids</h2>
+{% set nestedGridsColumnCount = [15, 5, 2]  %}
+
+<section id="test_nested-grids_with-extra-grid">
+    <h3>With extra grid</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            <div {{ sRGrid.rowAttrName }}="center">
+                {% set columnAttrValue = columnFraction %}
+                <div {{ sRGrid.columnAttrName }}="25">
+                    <div {{ sRGrid.gridAttrName }}>
+                        <div {{ sRGrid.rowAttrName }}>
+                            {% for colCountLevel1 in nestedGridsColumnCount %}
+                                <div {{ sRGrid.columnAttrName }}="{{ colCountLevel1 }}">
+                                    {% if loop.index == 1 %}
+                                        <div {{ sRGrid.gridAttrName }}>
+                                            <div {{ sRGrid.rowAttrName }}>
+                                                {% for colCountLevel2 in nestedGridsColumnCount %}
+                                                    <div {{ sRGrid.columnAttrName }}="{{ colCountLevel2 }}">
+                                                        <div class="test" data-test-text="{{ colCountLevel2 }}"></div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="test" data-test-text="{{ colCountLevel1 }}"></div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="test_nested-grids_without-extra-grid">
+    <h3>Without extra grid</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            <div {{ sRGrid.rowAttrName }}="center">
+                {% set columnAttrValue = columnFraction %}
+                <div {{ sRGrid.columnAttrName }}="25">
+                    <div {{ sRGrid.gridAttrName }}>
+                        <div {{ sRGrid.rowAttrName }}>
+                            {% for colCountLevel1 in nestedGridsColumnCount %}
+                                <div {{ sRGrid.columnAttrName }}="{{ colCountLevel1 }}">
+                                    {% if loop.index == 1 %}
+                                        <div {{ sRGrid.gridAttrName }}>
+                                            <div {{ sRGrid.rowAttrName }}>
+                                                {% for colCountLevel2 in nestedGridsColumnCount %}
+                                                    <div {{ sRGrid.columnAttrName }}="{{ colCountLevel2 }}">
+                                                        <div class="test" data-test-text="{{ colCountLevel2 }}"></div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="test" data-test-text="{{ colCountLevel1 }}"></div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,174 @@
+<h2>Alignment</h2>
+
+<section id="test_alignment_regular">
+    <h3>Regular</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Horizontal</h4>
+        <div {{ sRGrid.rowAttrName }}>
+            {% for i in 1..2 %}
+                <div {{ sRGrid.columnAttrName }}="12">
+                    <div class="test" data-test-text="Default"></div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="test-wrapper">
+            {% for alignmentInfix in sRGrid.alignmentInfixes.horizontal %}
+                <div {{ sRGrid.rowAttrName }}={{ alignmentInfix }}>
+                    {% for i in 1..2 %}
+                            <div {{ sRGrid.columnAttrName }}="12">
+                            <div class="test" data-test-text="{{ alignmentInfix }}"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <h4>Vertical</h4>
+        <div {{ sRGrid.rowAttrName }}>
+            {% for i in 1..2 %}
+                <div {{ sRGrid.columnAttrName }}>
+                    {% set testClass = i == 1 ? 'test test_large' : 'test' %}
+                    <div class="{{ testClass }}" data-test-text="Default"></div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="test-wrapper">
+            {% for alignmentInfix in sRGrid.alignmentInfixes.vertical %}
+                <div {{ sRGrid.rowAttrName }}={{ alignmentInfix }}>
+                    {% for i in 1..2 %}
+                        <div {{ sRGrid.columnAttrName }}>
+                            {% set testClass = i == 1 ? 'test test_large' : 'test' %}
+                            <div class="{{ testClass }}" data-test-text="{{ alignmentInfix }}"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_alignment_responsive">
+    <h3>Responsive</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Horizontal</h4>
+        <div class="test-wrapper">
+            {% set rowAttrValue = "" %}
+            {% for breakpointName in sRBreakpoints.breakpointNames  %}
+                {% for alignmentInfix in sRGrid.alignmentInfixes.horizontal %}
+                    {% set rowAttrValue = breakpointName ~ "-" ~ alignmentInfix %}
+                    <div {{ sRGrid.rowAttrName }}={{ rowAttrValue }}>
+                        {% for i in 1..2 %}
+                            <div {{ sRGrid.columnAttrName }}="12">
+                                <div class="test" data-test-text="{{ rowAttrValue }}"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        <h4>Vertical</h4>
+        <div class="test-wrapper">
+            {% set rowAttrValue = "" %}
+            {% for breakpointName in sRBreakpoints.breakpointNames  %}
+                {% for alignmentInfix in sRGrid.alignmentInfixes.vertical %}
+                    {% set rowAttrValue = breakpointName ~ "-" ~ alignmentInfix %}
+                    <div {{ sRGrid.rowAttrName }}={{ rowAttrValue }}>
+                        {% for i in 1..2 %}
+                            <div {{ sRGrid.columnAttrName }}>
+                                {% set testClass = i == 1 ? 'test test_large' : 'test' %}
+                                <div class="{{ testClass }}" data-test-text="{{ rowAttrValue }}"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_alignment_between">
+    <h3>Between</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Horizontal</h4>
+        <div class="test-wrapper">
+            {% set startBreakpointName = sRBreakpoints.breakpointNames[0] %}
+            {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% if loop.first == false %}
+                    {% set endBreakpointName = sRBreakpoints.breakpointNames[loop.index - 1] %}
+                    {% for alignmentInfix in sRGrid.alignmentInfixes.horizontal %}
+                        {% set rowAttrValue = startBreakpointName ~ "-" ~ endBreakpointName ~ "-" ~ alignmentInfix %}
+                        <div {{ sRGrid.rowAttrName }}={{ rowAttrValue }}>
+                            {% for i in 1..2 %}
+                                <div {{ sRGrid.columnAttrName }}="12">
+                                    <div class="test" data-test-text="{{ rowAttrValue }}"></div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <h4>Vertical</h4>
+        <div class="test-wrapper">
+            {% set startBreakpointName = sRBreakpoints.breakpointNames[0] %}
+            {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% if loop.first == false %}
+                    {% set endBreakpointName = sRBreakpoints.breakpointNames[loop.index - 1] %}
+                    {% for alignmentInfix in sRGrid.alignmentInfixes.vertical %}
+                        {% set rowAttrValue = startBreakpointName ~ "-" ~ endBreakpointName ~ "-" ~ alignmentInfix %}
+                        <div {{ sRGrid.rowAttrName }}={{ rowAttrValue }}>
+                            {% for i in 1..2 %}
+                                <div {{ sRGrid.columnAttrName }}>
+                                    {% set testClass = i == 1 ? 'test test_large' : 'test' %}
+                                    <div class="{{ testClass }}" data-test-text="{{ rowAttrValue }}"></div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_alignment_only">
+    <h3>Only</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Horizontal</h4>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames %}
+                {% for alignmentInfix in sRGrid.alignmentInfixes.horizontal %}
+                    {% set rowAttrValue = breakpointName ~ "-" ~ sRGrid.onlyInfix ~ "-" ~ alignmentInfix %}
+                    <div {{ sRGrid.rowAttrName }}={{ rowAttrValue }}>
+                        {% for i in 1..2 %}
+                            <div {{ sRGrid.columnAttrName }}="12">
+                                <div class="test" data-test-text="{{ rowAttrValue }}"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        <h4>Vertical</h4>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames %}
+                {% for alignmentInfix in sRGrid.alignmentInfixes.vertical %}
+                    {% set rowAttrValue = breakpointName ~ "-" ~ sRGrid.onlyInfix ~ "-" ~ alignmentInfix %}
+                    <div {{ sRGrid.rowAttrName }}={{ rowAttrValue }}>
+                        {% for i in 1..2 %}
+                            <div {{ sRGrid.columnAttrName }}>
+                                {% set testClass = i == 1 ? 'test test_large' : 'test' %}
+                                <div class="{{ testClass }}" data-test-text="{{ rowAttrValue }}"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

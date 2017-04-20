@@ -1,0 +1,86 @@
+{% extends "./_base.twig" %}
+
+{% block content %}
+    {% set sRBreakpoints = {
+        breakpointNames: ['xs', 's', 'm', 'l', 'xl', 'xxl'],
+        debug: true
+    } %}
+    {% set sRGrid = {
+        gridAttrName: 'data-grid',
+        rowAttrName: 'data-grid-row',
+        columnAttrName: 'data-grid-col',
+        onlyInfix: 'only',
+        gutterWidths: {
+            xs: 5,
+            s: 5,
+            m: 10,
+            l: 15,
+            xl: 20,
+            xxl: 25
+        },
+        columnCount: 30,
+        wrapperAttrName: 'data-grid-wrapper',
+        hideAttrName: 'data-hide',
+        offsetInfix: 'offset',
+        distributionAroundInfix: 'around',
+        distributionBetweenInfix: 'between',
+        reverseInfix: 'reverse',
+        reorderInfix: 'reorder',
+        alignmentInfixes: {
+            horizontal: [
+                'start',
+                'center',
+                'end'
+            ],
+            vertical: [
+                'top',
+                'middle',
+                'bottom',
+                'stretch'
+            ]
+        },
+        alignColumnInfixes: [
+            'top',
+            'middle',
+            'bottom',
+            'stretch'
+        ],
+        blockInfix: 'block',
+        gaplessInfix: 'gapless',
+        columnFractions: ['1-2', '1-3', '1-4', '2-3', '3-4']
+    } %}
+
+    {% set simpleGrid = {
+        gridAttrName: 'data-simple-grid',
+        rowAttrName: 'data-simple-grid-row',
+        columnAttrName: 'data-simple-grid-col',
+        onlyInfix: 'only',
+        gutterWidths: {
+            xs:10,
+            s: 10,
+            m: 10,
+            l: 10,
+            xl: 20,
+            xxl: 10
+        },
+        columnCount: 4,
+        wrapperAttrName: 'data-grid-wrapper'
+    } %}
+
+
+    {% include './test/_base.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_wrapper.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_hide.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_fluid.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_offset.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_distribuition.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_reverse.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_reorder.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_alignment.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_align-column.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_block.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_gapless.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_column-fractions.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_nested-grids.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': sRGrid } %}
+    {% include './test/_multi-grids.twig' with {'sRBreakpoints': sRBreakpoints, 'sRGrid': simpleGrid } %}
+{% endblock %}

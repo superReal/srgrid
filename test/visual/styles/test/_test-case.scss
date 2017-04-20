@@ -1,0 +1,57 @@
+.test {
+    position: relative;
+
+    width: 100%;
+    height: 50px;
+
+    background: $color-black;
+
+    &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        color: $color-white;
+        font-size: 15px;
+        text-align: center;
+    }
+}
+
+.test_large {
+    height: 100px;
+}
+
+// Add margin bottom to column
+[data-grid-col],
+[data-simple-grid-col] {
+    margin-bottom: 10px;
+}
+
+// Show test text
+[data-test-text] {
+    &::after {
+        content: attr(data-test-text);
+    }
+}
+
+// Highlight test wrapper at test mode
+.test-mode {
+    .test-wrapper {
+        background: rgba(255, 0, 0, .2);
+    }
+}
+
+// Hide text at test mode
+.test-mode *{ /* stylelint-disable-line */
+    &,
+    &::before,
+    &::after {
+        font-size: 0 !important;
+    }
+}

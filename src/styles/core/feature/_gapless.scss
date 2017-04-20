@@ -1,0 +1,155 @@
+////
+//// @group feature/gapless
+///
+
+/// Generate base of the gapless feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $gapless-row-attr-value - Gapless row attribute value
+/// @param {String} $column-attr-name - Column attribute name
+@mixin srgrid-generate-gapless-base(
+    $row-attr-name,
+    $gapless-row-attr-value,
+    $column-attr-name
+) {
+    $row-selector: srgrid-generate-attr-selector($row-attr-name, $gapless-row-attr-value);
+    $column-selector: srgrid-generate-attr-selector($column-attr-name);
+    #{$row-selector} {
+        margin-left: 0;
+        margin-right: 0;
+
+        #{$column-selector} {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+
+/// Generate `regular` mode of the gapless feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {Number} $gapless-attr-addition - Gapless attribute addition
+@mixin srgrid-generate-gapless-regular-feature(
+    $row-attr-name,
+    $column-attr-name,
+    $gapless-attr-addition
+) {
+    @include srgrid-generate-gapless-base(
+            $row-attr-name,
+            $gapless-attr-addition,
+            $column-attr-name
+    );
+}
+
+/// Generate `responsive` mode of the gapless feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {Number} $gapless-attr-addition - Gapless attribute addition
+@mixin srgrid-generate-gapless-responsive-feature(
+    $row-attr-name,
+    $column-attr-name,
+    $gapless-attr-addition
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-gapless-base(
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $gapless-attr-addition),
+                $column-attr-name
+        );
+    }
+}
+
+/// Generate `between` mode of the gapless feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {Number} $gapless-attr-addition - Gapless attribute addition
+@mixin srgrid-generate-gapless-between-feature(
+    $row-attr-name,
+    $column-attr-name,
+    $gapless-attr-addition
+) {
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-gapless-base(
+                $row-attr-name,
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $gapless-attr-addition),
+                $column-attr-name
+        );
+    }
+}
+
+/// Generate `only` mode of the gapless feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {Number} $gapless-attr-addition - Gapless attribute addition
+/// @param {Number} $only-attr-addition - Only attribute addition
+@mixin srgrid-generate-gapless-only-feature(
+    $row-attr-name,
+    $column-attr-name,
+    $gapless-attr-addition,
+    $only-attr-addition
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-gapless-base(
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $gapless-attr-addition),
+                $column-attr-name
+        );
+    }
+}
+
+/// Generate the gapless feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-gapless-feature(
+        $grid-id
+) {
+    // Get feature variables
+    $gapless-feature: srgrid-get-grid-setting($grid-id, gapless-feature);
+    $row-attr-name: srgrid-get-grid-setting($grid-id, row-attr-name);
+    $column-attr-name: srgrid-get-grid-setting($grid-id, column-attr-name);
+    $gapless-attr-addition: srgrid-get-grid-setting($grid-id, gapless-attr-addition);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    $feature-check: srgrid-check-feature-settings('Gapless', $gapless-feature);
+
+    @if index($gapless-feature, regular) {
+        @include srgrid-generate-gapless-regular-feature(
+                $row-attr-name,
+                $column-attr-name,
+                $gapless-attr-addition
+        );
+    }
+
+    @if index($gapless-feature, responsive) {
+        @include srgrid-generate-gapless-responsive-feature(
+                $row-attr-name,
+                $column-attr-name,
+                $gapless-attr-addition
+        );
+    }
+
+    @if index($gapless-feature, between) {
+        @include srgrid-generate-gapless-between-feature(
+                $row-attr-name,
+                $column-attr-name,
+                $gapless-attr-addition
+        );
+    }
+
+    @if index($gapless-feature, only) {
+        @include srgrid-generate-gapless-only-feature(
+                $row-attr-name,
+                $column-attr-name,
+                $gapless-attr-addition,
+                $only-attr-addition
+        );
+    }
+}

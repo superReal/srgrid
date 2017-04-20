@@ -1,0 +1,89 @@
+<h2>Fluid Feature</h2>
+
+<section id="test_fluid_regular">
+    <h3>Regular</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% set regularColumnCounts = [
+                [30],
+                [10, 0, 8],
+                [6, 5, 4]
+            ] %}
+            {% for regularColumnCount in regularColumnCounts %}
+                <div {{ sRGrid.rowAttrName }}>
+                    {% for colCount in regularColumnCount %}
+                        <div {{ sRGrid.columnAttrName }}{% if colCount > 0 %}="{{ colCount }}"{% endif %}>
+                            <div class="test" {% if colCount > 0 %}data-test-text="{{ colCount }}"{% endif %}></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_fluid_responsive">
+    <h3>Responsive</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% set responsiveColumnCounts = [
+                [30, 25, 20, 15, 10, 5],
+                [0, 10, 20, 30]
+            ] %}
+            {% for responsiveColumnCount in responsiveColumnCounts %}
+                {% set colAttrValue = "" %}
+                {% for col in responsiveColumnCount %}
+                    {% set colAttrValue = colAttrValue ~ " " ~ sRBreakpoints.breakpointNames[loop.index - 1] ~ "-" ~ col %}
+                {% endfor %}
+
+                <div {{ sRGrid.rowAttrName }}>
+                    <div {{ sRGrid.columnAttrName }}="{{ colAttrValue }}">
+                        <div class="test" data-test-text="{{ colAttrValue }}"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_fluid_between">
+    <h3>Between</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% set betweenColumnCount = 15 %}
+            {% set startBreakpointName = sRBreakpoints.breakpointNames[0] %}
+            {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% if loop.first == false %}
+                    {% set endBreakpointName = sRBreakpoints.breakpointNames[loop.index - 1] %}
+                    {% set colAttrValue = startBreakpointName ~ "-" ~ endBreakpointName  ~ "-" ~ betweenColumnCount %}
+                    <div {{ sRGrid.rowAttrName }}>
+                        <div {{ sRGrid.columnAttrName }}="{{ colAttrValue }}">
+                            <div class="test" data-test-text="{{ colAttrValue }}"></div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_fluid_only">
+    <h3>Only</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% set onlyColumnCount = 15 %}
+            {% for breakpointName in sRBreakpoints.breakpointNames  %}
+                {% set colAttrValue = sRBreakpoints.breakpointNames[loop.index - 1] ~ "-" ~ sRGrid.onlyInfix ~ "-" ~ onlyColumnCount %}
+                <div {{ sRGrid.rowAttrName }}>
+                    <div {{ sRGrid.columnAttrName }}="{{ colAttrValue }}">
+                        <div class="test" data-test-text="{{ colAttrValue }}"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

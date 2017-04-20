@@ -1,0 +1,8 @@
+.idea
+node_modules
+npm-debug.log
+
+test/visual/dist
+/test/visual/backstop/ci-report
+/test/visual/backstop/html-report
+/test/visual/backstop/tests

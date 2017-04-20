@@ -1,0 +1,102 @@
+<h2>Hide Feature</h2>
+
+<section id="test_hide_regular">
+    <h3>Regular</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Default</h4>
+        <div {{ sRGrid.rowAttrName }}>
+            <div {{ sRGrid.columnAttrName }}>
+                <div class="test"></div>
+            </div>
+        </div>
+
+        <h4>Hide</h4>
+        <div class="test-wrapper">
+            <div {{ sRGrid.rowAttrName }} {{ sRGrid.hideAttrName }}>
+                <div {{ sRGrid.columnAttrName }}>
+                    <div class="test" data-test-text="{{ hideAttrValue }}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="test_hide_responsive">
+    <h3>Responsive</h3>
+
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Default</h4>
+        <div {{ sRGrid.rowAttrName }}>
+            <div {{ sRGrid.columnAttrName }}>
+                <div class="test"></div>
+            </div>
+        </div>
+
+        <h4>Hide</h4>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames  %}
+                {% set hideAttrValue = breakpointName %}
+                <div {{ sRGrid.rowAttrName }} {{ sRGrid.hideAttrName }}="{{ hideAttrValue }}">
+                    <div {{ sRGrid.columnAttrName }}>
+                        <div class="test" data-test-text="{{ hideAttrValue }}"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_hide_between">
+    <h3>Between</h3>
+
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Default</h4>
+        <div {{ sRGrid.rowAttrName }}>
+            <div {{ sRGrid.columnAttrName }}>
+                <div class="test"></div>
+            </div>
+        </div>
+
+        <h4>Hide</h4>
+        <div class="test-wrapper">
+            {% set startBreakpointName = sRBreakpoints.breakpointNames[0] %}
+            {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% if loop.first == false %}
+                    {% set endBreakpointName = sRBreakpoints.breakpointNames[loop.index - 1] %}
+                    {% set hideAttrValue = startBreakpointName ~ "-" ~ endBreakpointName %}
+                    <div {{ sRGrid.rowAttrName }} {{ sRGrid.hideAttrName }}="{{ hideAttrValue }}" >
+                        <div {{ sRGrid.columnAttrName }}>
+                            <div class="test" data-test-text="{{ hideAttrValue }}"></div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_hide_only">
+    <h3>Only</h3>
+
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Default</h4>
+        <div {{ sRGrid.rowAttrName }}>
+            <div {{ sRGrid.columnAttrName }}>
+                <div class="test"></div>
+            </div>
+        </div>
+
+        <h4>Hide</h4>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames  %}
+                <div {{ sRGrid.rowAttrName }}>
+                    <div {{ sRGrid.columnAttrName }}>
+                        {% set hideAttrValue = breakpointName ~ "-" ~ sRGrid.onlyInfix %}
+                        <div class="test" {{ sRGrid.hideAttrName }}="{{ hideAttrValue }}" data-test-text="{{ hideAttrValue }}"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+

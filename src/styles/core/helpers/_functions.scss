@@ -1,0 +1,176 @@
+////
+//// @group helper/functions
+///
+
+/// @access private
+/// Join attribute values with a dash (`-`)
+/// @param {List} $attr-values - Attribute values
+/// @return {String} Return Attribute values joined with a dash
+@function srgrid-join-attr-values($attr-values...) {
+    $attr-value-items: ();
+    @each $attr-value-item in $attr-values {
+        @if $attr-value-item != '' {
+            $attr-value-items: append($attr-value-items, $attr-value-item);
+        }
+    }
+
+    $attr-value: '';
+    @for $index from 1 through length($attr-value-items) {
+        $attr-value-item: nth($attr-value-items, $index);
+        @if $index < length($attr-value-items) {
+            $attr-value-item: '#{$attr-value-item}-';
+        }
+        $attr-value: '#{$attr-value}#{$attr-value-item}';
+    }
+
+    @return $attr-value;
+}
+
+/// @access private
+/// Generate attribute selector
+/// @param {String} $attr-name - Attribute name
+/// @param {Null|String} $attr-value [null] - Attribute value
+/// @return {String} Return Generated attribute selector
+@function srgrid-generate-attr-selector(
+    $attr-name,
+    $attr-value: null
+) {
+    $selector: '[#{$attr-name}';
+    @if $attr-value != null {
+        @if $attr-value == '' {
+            // Empty attribute value
+            $selector: '#{$selector}=""';
+        } @else {
+            // With attribute value
+            $selector: '#{$selector}~="#{$attr-value}"';
+        }
+    }
+    $selector: '#{$selector}]';
+
+    @return $selector;
+}
+
+/// @access private
+/// Round percentage number to three digits
+/// @param {number} $percentage - Percentage
+/// @return {number} Return rounded percentage
+@function srgrid-round-percentage($percentage) {
+    $n: 1;
+    @for $i from 1 through 3 {
+        $n: $n * 10;
+    }
+
+    @return round($percentage * $n) / $n;
+}
+
+/// @access private
+/// Check user feature settings
+/// @param {String} $feature-name -
+/// @param {Boolean|List} $user-settings - User settings
+/// @param {Boolean|List} feature-settings [regular responsive between only] - Default feature settings
+/// @return {Boolean} Return feature validation status
+@function srgrid-check-feature-settings(
+    $feature-name,
+    $user-settings,
+    $feature-settings: regular responsive between only
+) {
+    @each $user-setting in $user-settings {
+        @if index($feature-settings, $user-setting) == null {
+            $error-message: '#{$feature-name} feature has no `#{$user-setting}` setting.';
+            $error-message: '#{$error-message} Available settings:';
+            @each $feature-setting in $feature-settings {
+                @if index($feature-settings, $feature-setting) != 1 {
+                    $error-message: '#{$error-message},';
+                }
+                $error-message: '#{$error-message} `#{$feature-setting}`';
+            }
+            $error-message: '#{$error-message}.';
+            @error $error-message;
+        }
+    }
+
+    @return true;
+}
+
+/// Check whether the sR Grid module has already been initialized
+/// @return {Boolean} Return sR Grid initialization status
+@function srgrid-is-initialized() {
+    @return global_variable_exists(srgrid);
+}
+
+/// Check whether the grid id exists
+/// @return {Boolean} Return grid id exist status
+@function srgrid-grid-id-exists($grid-id) {
+    @return map_has_key($srgrid, $grid-id);
+}
+
+/// Get grid settings
+/// @param {String} $grid-id - Grid id
+/// @return {Map} Return grid settings
+@function srgrid-get-grid-settings($grid-id) {
+    @if srgrid-is-initialized() == false {
+        @error 'Please initialize sR Grid module first';
+    }
+    @if srgrid-grid-id-exists($grid-id) == false {
+        @error 'The grid named `#{$grid-id}` was not found!';
+    }
+
+    @return map_get($srgrid, $grid-id);
+}
+
+/// Get a single grid setting
+/// @param {String} $grid-id - Grid id
+/// @param {String} $setting-name - Setting name
+/// @return {*} - Return a single grid setting
+@function srgrid-get-grid-setting(
+    $grid-id,
+    $setting-name
+) {
+    $grid-settings: srgrid-get-grid-settings($grid-id);
+    @if map_has_key($grid-settings, $setting-name) == false {
+        @error 'The setting named `#{$setting-name}` was not found!';
+    }
+
+    @return map_get($grid-settings, $setting-name);
+}
+
+/// Set a single grid setting
+/// @param {String} $grid-id - Grid id
+/// @param {String} $setting-name - Setting name
+/// @param {*} $setting-value - Setting value
+/// @return {*} - Return updated sR Grid settings
+@function srgrid-set-grid-setting(
+    $grid-id,
+    $setting-name,
+    $setting-value
+) {
+    $grid-settings: ();
+    @if srgrid-grid-id-exists($grid-id) {
+        $grid-settings: srgrid-get-grid-settings($grid-id);
+    }
+    $grid-settings: map-merge($grid-settings, ($setting-name: $setting-value));
+    $srgrid: map-merge($srgrid, ($grid-id: $grid-settings)) !global;
+    @return $srgrid;
+}
+
+/// @access private
+/// Get a single temp setting
+/// @param {String} $setting-name - Setting name
+/// @return {*} - Return a single temp setting
+@function srgrid-get-temp-setting(
+    $setting-name
+) {
+    @return srgrid-get-grid-setting(__temp__, $setting-name);
+}
+
+/// @access private
+/// Set a single temp setting
+/// @param {String} $setting-name - Setting name
+/// @param {String} $setting-value - Setting value
+/// @return {*} - Return updated sR Grid settings
+@function srgrid-set-temp-setting(
+    $setting-name,
+    $setting-value
+) {
+    @return srgrid-set-grid-setting(__temp__, $setting-name, $setting-value);
+}

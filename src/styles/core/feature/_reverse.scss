@@ -1,0 +1,129 @@
+////
+//// @group feature/reverse
+///
+
+/// Generate base of the reverse feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $reverse-row-attr-value - Reverse row attribute value
+@mixin srgrid-generate-reverse-base(
+    $row-attr-name,
+    $reverse-row-attr-value
+) {
+    $selector: srgrid-generate-attr-selector($row-attr-name, $reverse-row-attr-value);
+    #{$selector} {
+        flex-direction: row-reverse;
+    }
+}
+
+/// Generate `regular` mode of the reverse feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {Number} $reverse-attr-addition - Reverse attribute addition
+@mixin srgrid-generate-reverse-regular-feature(
+    $row-attr-name,
+    $reverse-attr-addition
+) {
+    @include srgrid-generate-reverse-base(
+            $row-attr-name,
+            $reverse-attr-addition
+    );
+}
+
+/// Generate `responsive` mode of the reverse feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {Number} $reverse-attr-addition - Reverse attribute addition
+@mixin srgrid-generate-reverse-responsive-feature(
+    $row-attr-name,
+    $reverse-attr-addition
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-reverse-base(
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $reverse-attr-addition)
+        );
+    }
+}
+
+/// Generate `between` mode of the reverse feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {Number} $reverse-attr-addition - Reverse attribute addition
+@mixin srgrid-generate-reverse-between-feature(
+    $row-attr-name,
+    $reverse-attr-addition
+) {
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-reverse-base(
+                $row-attr-name,
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $reverse-attr-addition)
+        );
+    }
+}
+
+/// Generate `only` mode of the reverse feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {Number} $reverse-attr-addition - Reverse attribute addition
+/// @param {String} $only-attr-addition - Only attribute addition
+@mixin srgrid-generate-reverse-only-feature(
+    $row-attr-name,
+    $reverse-attr-addition,
+    $only-attr-addition
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-reverse-base(
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $reverse-attr-addition)
+        );
+    }
+}
+
+/// Generate the reverse feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-reverse-feature(
+        $grid-id
+) {
+    // Get feature variables
+    $reverse-feature: srgrid-get-grid-setting($grid-id, reverse-feature);
+    $row-attr-name: srgrid-get-grid-setting($grid-id, row-attr-name);
+    $reverse-attr-addition: srgrid-get-grid-setting($grid-id, reverse-attr-addition);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    $feature-check: srgrid-check-feature-settings('Reverse', $reverse-feature);
+
+    @if index($reverse-feature, regular) {
+        @include srgrid-generate-reverse-regular-feature(
+                $row-attr-name,
+                $reverse-attr-addition
+        );
+    }
+
+    @if index($reverse-feature, responsive) {
+        @include srgrid-generate-reverse-responsive-feature(
+                $row-attr-name,
+                $reverse-attr-addition
+        );
+    }
+
+    @if index($reverse-feature, between) {
+        @include srgrid-generate-reverse-between-feature(
+                $row-attr-name,
+                $reverse-attr-addition
+        );
+    }
+
+    @if index($reverse-feature, only) {
+        @include srgrid-generate-reverse-only-feature(
+                $row-attr-name,
+                $reverse-attr-addition,
+                $only-attr-addition
+        );
+    }
+}

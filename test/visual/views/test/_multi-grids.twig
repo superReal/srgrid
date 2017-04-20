@@ -1,0 +1,25 @@
+<h2>Multigrid Feature</h2>
+
+
+<section id="test_multigrid">
+    <h3>Simple grid with 4 columns and enabled regular fluid feature</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% set regularColumnCounts = [
+                [1],
+                [2, 0, 2],
+                [1, 1, 1, 1]
+            ] %}
+            {% for regularColumnCount in regularColumnCounts %}
+                <div {{ sRGrid.rowAttrName }}>
+                    {% for colCount in regularColumnCount %}
+                        <div {{ sRGrid.columnAttrName }}{% if colCount > 0 %}="{{ colCount }}"{% endif %}>
+                            <div class="test" {% if colCount > 0 %}data-test-text="{{ colCount }}"{% endif %}></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,83 @@
+// Import sR Breakpoints module
+@import '@superreal/srbreakpoints';
+// Import sR Grid module
+@import '../../../src/styles/srgrid';
+
+// Init sR Breakpoints module
+@include srbreakpoints-init(
+    // Extend breakpoints settings with `xxl` breakpoint
+    $breakpoints: (
+        xs: 0,
+        s: 480,
+        m: 768,
+        l: 1024,
+        xl: 1280,
+        xxl: 1400
+    ),
+    // Enable debug mode
+    $debug: true
+);
+
+// Create sR Grid grid
+@include srgrid-create-grid(
+    // Change grid id
+    $grid-id: 'grid',
+    // Extend gutter widths with `xxl` breakpoint
+    $gutter-widths: (
+        xs: 5,
+        s: 5,
+        m: 10,
+        l: 15,
+        xl: 20,
+        xxl: 25
+    ),
+    // Change column count to `30`
+    $column-count: 30,
+    // Enable wrapper feature
+    $wrapper-feature: true,
+    // Change wrapper max widths
+    $wrapper-max-widths: (
+        xs: 150,
+        s: 400,
+        m: 700,
+        l: 1000,
+        xl: 1200,
+        xxl: 1400
+    ),
+    // Enable hide feature
+    $hide-feature: regular responsive between only,
+    // Change hide attr name
+    $hide-attr-name: 'data-hide',
+    // Enable fluid feature
+    $fluid-feature: regular responsive between only,
+    // Enable offset feature
+    $offset-feature: regular responsive between only,
+    // Enable distribution feature
+    $distribution-feature: regular responsive between only,
+    // Enable reverse feature
+    $reverse-feature: regular responsive between only,
+    // Enable reorder feature
+    $reorder-feature: regular responsive between only,
+    // Enable alignment feature
+    $alignment-feature: regular responsive between only,
+    // Enable align column feature
+    $align-column-feature: regular responsive between only,
+    // Enable block feature
+    $block-feature: regular responsive between only,
+    // Enable gapless feature
+    $gapless-feature: regular responsive between only,
+    // Enable column fractions
+    $column-fractions-feature: regular responsive between only
+);
+
+// Create another sR Grid grid (Multigrid feature)
+@include srgrid-create-grid(
+    // Change attribute names
+    $grid-id: 'simple-grid',
+    // Change gutter width to `10` in all breakpoints
+    $gutter-widths: 10,
+    // Change column count to `4`
+    $column-count: 4,
+    // Enable regular fluid feature
+    $fluid-feature: regular
+);

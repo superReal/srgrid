@@ -1,0 +1,9 @@
+/* stylelint-disable selector-id-pattern, selector-no-id */
+#test_alignment_regular,
+#test_alignment_responsive,
+#test_alignment_between,
+#test_alignment_only {
+    [data-grid-col] {
+        background: rgba($color-black, .2);
+    }
+}

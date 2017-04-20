@@ -1,0 +1,160 @@
+////
+//// @group feature/distribution
+///
+
+/// Generate base of the distribution feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $distribution-around-row-attr-value - Distribution around row attribute value
+/// @param {String} $distribution-between-row-attr-value - Distribution between row attribute value
+@mixin srgrid-generate-distribution-base(
+    $row-attr-name,
+    $distribution-around-row-attr-value,
+    $distribution-between-row-attr-value
+) {
+    $around-selector: srgrid-generate-attr-selector($row-attr-name, $distribution-around-row-attr-value);
+    #{$around-selector} {
+        justify-content: space-around;
+    }
+    $between-selector: srgrid-generate-attr-selector($row-attr-name, $distribution-between-row-attr-value);
+    #{$between-selector} {
+        justify-content: space-between;
+    }
+}
+
+/// Generate `regular` mode of the distribution feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $distribution-around-attr-addition - Distribution around attribute addition
+/// @param {String} $distribution-between-attr-addition - Distribution between attribute addition
+@mixin srgrid-generate-distribution-regular-feature(
+        $row-attr-name,
+        $distribution-around-attr-addition,
+        $distribution-between-attr-addition
+) {
+    @include srgrid-generate-distribution-base(
+            $row-attr-name,
+            $distribution-around-attr-addition,
+            $distribution-between-attr-addition
+    );
+}
+
+/// Generate `responsive` mode of the distribution feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $distribution-around-attr-addition - Distribution around attribute addition
+/// @param {String} $distribution-between-attr-addition - Distribution between attribute addition
+@mixin srgrid-generate-distribution-responsive-feature(
+        $row-attr-name,
+        $distribution-around-attr-addition,
+        $distribution-between-attr-addition
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-distribution-base(
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $distribution-around-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $distribution-between-attr-addition)
+        );
+    }
+}
+
+/// Generate `between` mode of the distribution feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $distribution-around-attr-addition - Distribution around attribute addition
+/// @param {String} $distribution-between-attr-addition - Distribution between attribute addition
+@mixin srgrid-generate-distribution-between-feature(
+        $row-attr-name,
+        $distribution-around-attr-addition,
+        $distribution-between-attr-addition
+) {
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-distribution-base(
+                $row-attr-name,
+                srgrid-join-attr-values(
+                    $start-breakpoint-name,
+                    $end-breakpoint-name,
+                    $distribution-around-attr-addition
+                ),
+                srgrid-join-attr-values(
+                    $start-breakpoint-name,
+                    $end-breakpoint-name,
+                    $distribution-between-attr-addition
+                )
+        );
+    }
+}
+
+/// Generate `only` mode of the distribution feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $distribution-around-attr-addition - Distribution around attribute addition
+/// @param {String} $distribution-between-attr-addition - Distribution between attribute addition
+/// @param {String} $only-attr-addition - Only attribute addition
+@mixin srgrid-generate-distribution-only-feature(
+        $row-attr-name,
+        $distribution-around-attr-addition,
+        $distribution-between-attr-addition,
+        $only-attr-addition
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-distribution-base(
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $distribution-around-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $distribution-between-attr-addition)
+        );
+    }
+}
+
+/// Generate the distribution feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-distribution-feature(
+        $grid-id
+) {
+    // Get feature variables
+    $distribution-feature: srgrid-get-grid-setting($grid-id, distribution-feature);
+    $row-attr-name: srgrid-get-grid-setting($grid-id, row-attr-name);
+    $distribution-around-attr-addition: srgrid-get-grid-setting($grid-id, distribution-around-attr-addition);
+    $distribution-between-attr-addition: srgrid-get-grid-setting($grid-id, distribution-between-attr-addition);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    $feature-check: srgrid-check-feature-settings('Distribution', $distribution-feature);
+
+    @if index($distribution-feature, regular) {
+        @include srgrid-generate-distribution-regular-feature(
+                $row-attr-name,
+                $distribution-around-attr-addition,
+                $distribution-between-attr-addition
+        );
+    }
+
+    @if index($distribution-feature, responsive) {
+        @include srgrid-generate-distribution-responsive-feature(
+                $row-attr-name,
+                $distribution-around-attr-addition,
+                $distribution-between-attr-addition
+        );
+    }
+
+    @if index($distribution-feature, between) {
+        @include srgrid-generate-distribution-between-feature(
+                $row-attr-name,
+                $distribution-around-attr-addition,
+                $distribution-between-attr-addition
+        );
+    }
+
+    @if index($distribution-feature, only) {
+        @include srgrid-generate-distribution-only-feature(
+                $row-attr-name,
+                $distribution-around-attr-addition,
+                $distribution-between-attr-addition,
+                $only-attr-addition
+        );
+    }
+}

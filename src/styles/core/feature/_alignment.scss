@@ -1,0 +1,276 @@
+////
+//// @group feature/alignment
+///
+
+/// Generate base of the alignment feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $start-row-attr-value - Start row attribute value
+/// @param {String} $center-row-attr-value - Center row attribute value
+/// @param {String} $end-row-attr-value - End row attribute value
+/// @param {String} $top-row-attr-value - Top row attribute value
+/// @param {String} $middle-row-attr-value - Middle row attribute value
+/// @param {String} $bottom-row-attr-value - Bottom row attribute value
+/// @param {String} $stretch-row-attr-value - Stretch row attribute value
+@mixin srgrid-generate-alignment-base(
+    $row-attr-name,
+    $start-row-attr-value,
+    $center-row-attr-value,
+    $end-row-attr-value,
+    $top-row-attr-value,
+    $middle-row-attr-value,
+    $bottom-row-attr-value,
+    $stretch-row-attr-value
+) {
+    $start-selector: srgrid-generate-attr-selector($row-attr-name, $start-row-attr-value);
+    #{$start-selector} {
+        justify-content: flex-start;
+        text-align: start;
+    }
+
+    $center-selector: srgrid-generate-attr-selector($row-attr-name, $center-row-attr-value);
+    #{$center-selector} {
+        justify-content: center;
+        text-align: center;
+    }
+
+    $end-selector: srgrid-generate-attr-selector($row-attr-name, $end-row-attr-value);
+    #{$end-selector} {
+        justify-content: flex-end;
+        text-align: end;
+    }
+
+    $top-selector: srgrid-generate-attr-selector($row-attr-name, $top-row-attr-value);
+    #{$top-selector} {
+        align-items: flex-start;
+    }
+
+    $middle-selector: srgrid-generate-attr-selector($row-attr-name, $middle-row-attr-value);
+    #{$middle-selector} {
+        align-items: center;
+    }
+
+    $bottom-selector: srgrid-generate-attr-selector($row-attr-name, $bottom-row-attr-value);
+    #{$bottom-selector} {
+        align-items: flex-end;
+    }
+
+    $stretch-selector: srgrid-generate-attr-selector($row-attr-name, $stretch-row-attr-value);
+    #{$stretch-selector} {
+        align-items: stretch;
+    }
+}
+
+/// Generate `regular` mode of the alignment feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $alignment-start-attr-addition - Alignment start attribute addition
+/// @param {String} $alignment-center-attr-addition - Alignment center attribute addition
+/// @param {String} $alignment-end-attr-addition - Alignment end attribute addition
+/// @param {String} $alignment-top-attr-addition - Alignment top attribute addition
+/// @param {String} $alignment-middle-attr-addition - Alignment middle attribute addition
+/// @param {String} $alignment-bottom-attr-addition - Alignment bottom attribute addition
+/// @param {String} $alignment-stretch-attr-addition - Alignment stretch attribute addition
+@mixin srgrid-generate-alignment-regular-feature(
+    $row-attr-name,
+    $alignment-start-attr-addition,
+    $alignment-center-attr-addition,
+    $alignment-end-attr-addition,
+    $alignment-top-attr-addition,
+    $alignment-middle-attr-addition,
+    $alignment-bottom-attr-addition,
+    $alignment-stretch-attr-addition
+) {
+    @include srgrid-generate-alignment-base(
+            $row-attr-name,
+            $alignment-start-attr-addition,
+            $alignment-center-attr-addition,
+            $alignment-end-attr-addition,
+            $alignment-top-attr-addition,
+            $alignment-middle-attr-addition,
+            $alignment-bottom-attr-addition,
+            $alignment-stretch-attr-addition
+    );
+}
+
+/// Generate `responsive` mode of the alignment feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $alignment-start-attr-addition - Alignment start attribute addition
+/// @param {String} $alignment-center-attr-addition - Alignment center attribute addition
+/// @param {String} $alignment-end-attr-addition - Alignment end attribute addition
+/// @param {String} $alignment-top-attr-addition - Alignment top attribute addition
+/// @param {String} $alignment-middle-attr-addition - Alignment middle attribute addition
+/// @param {String} $alignment-bottom-attr-addition - Alignment bottom attribute addition
+/// @param {String} $alignment-stretch-attr-addition - Alignment stretch attribute addition
+@mixin srgrid-generate-alignment-responsive-feature(
+    $row-attr-name,
+    $alignment-start-attr-addition,
+    $alignment-center-attr-addition,
+    $alignment-end-attr-addition,
+    $alignment-top-attr-addition,
+    $alignment-middle-attr-addition,
+    $alignment-bottom-attr-addition,
+    $alignment-stretch-attr-addition
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-alignment-base(
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $alignment-start-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $alignment-center-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $alignment-end-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $alignment-top-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $alignment-middle-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $alignment-bottom-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $alignment-stretch-attr-addition)
+        );
+    }
+}
+
+/// Generate `between` mode of the alignment feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $alignment-start-attr-addition - Alignment start attribute addition
+/// @param {String} $alignment-center-attr-addition - Alignment center attribute addition
+/// @param {String} $alignment-end-attr-addition - Alignment end attribute addition
+/// @param {String} $alignment-top-attr-addition - Alignment top attribute addition
+/// @param {String} $alignment-middle-attr-addition - Alignment middle attribute addition
+/// @param {String} $alignment-bottom-attr-addition - Alignment bottom attribute addition
+/// @param {String} $alignment-stretch-attr-addition - Alignment stretch attribute addition
+@mixin srgrid-generate-alignment-between-feature(
+    $row-attr-name,
+    $alignment-start-attr-addition,
+    $alignment-center-attr-addition,
+    $alignment-end-attr-addition,
+    $alignment-top-attr-addition,
+    $alignment-middle-attr-addition,
+    $alignment-bottom-attr-addition,
+    $alignment-stretch-attr-addition
+) {
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-alignment-base(
+                $row-attr-name,
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $alignment-start-attr-addition),
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $alignment-center-attr-addition),
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $alignment-end-attr-addition),
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $alignment-top-attr-addition),
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $alignment-middle-attr-addition),
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $alignment-bottom-attr-addition),
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $alignment-stretch-attr-addition)
+        );
+    }
+}
+
+/// Generate `only` mode of the alignment feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $alignment-start-attr-addition - Alignment start attribute addition
+/// @param {String} $alignment-center-attr-addition - Alignment center attribute addition
+/// @param {String} $alignment-end-attr-addition - Alignment end attribute addition
+/// @param {String} $alignment-top-attr-addition - Alignment top attribute addition
+/// @param {String} $alignment-middle-attr-addition - Alignment middle attribute addition
+/// @param {String} $alignment-bottom-attr-addition - Alignment bottom attribute addition
+/// @param {String} $alignment-stretch-attr-addition - Alignment stretch attribute addition
+/// @param {String} $only-attr-addition - Only attribute addition
+@mixin srgrid-generate-alignment-only-feature(
+    $row-attr-name,
+    $alignment-start-attr-addition,
+    $alignment-center-attr-addition,
+    $alignment-end-attr-addition,
+    $alignment-top-attr-addition,
+    $alignment-middle-attr-addition,
+    $alignment-bottom-attr-addition,
+    $alignment-stretch-attr-addition,
+    $only-attr-addition
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-alignment-base(
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $alignment-start-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $alignment-center-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $alignment-end-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $alignment-top-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $alignment-middle-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $alignment-bottom-attr-addition),
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $alignment-stretch-attr-addition)
+        );
+    }
+}
+
+/// Generate the alignment feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-alignment-feature(
+        $grid-id
+) {
+    // Get feature variables
+    $alignment-feature: srgrid-get-grid-setting($grid-id, alignment-feature);
+    $row-attr-name: srgrid-get-grid-setting($grid-id, row-attr-name);
+    $alignment-start-attr-addition: srgrid-get-grid-setting($grid-id, alignment-start-attr-addition);
+    $alignment-center-attr-addition: srgrid-get-grid-setting($grid-id, alignment-center-attr-addition);
+    $alignment-end-attr-addition: srgrid-get-grid-setting($grid-id, alignment-end-attr-addition);
+    $alignment-top-attr-addition: srgrid-get-grid-setting($grid-id, alignment-top-attr-addition);
+    $alignment-middle-attr-addition: srgrid-get-grid-setting($grid-id, alignment-middle-attr-addition);
+    $alignment-bottom-attr-addition: srgrid-get-grid-setting($grid-id, alignment-bottom-attr-addition);
+    $alignment-stretch-attr-addition: srgrid-get-grid-setting($grid-id, alignment-stretch-attr-addition);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    $feature-check: srgrid-check-feature-settings('Alignment', $alignment-feature);
+
+    @if index($alignment-feature, regular) {
+        @include srgrid-generate-alignment-regular-feature(
+                $row-attr-name,
+                $alignment-start-attr-addition,
+                $alignment-center-attr-addition,
+                $alignment-end-attr-addition,
+                $alignment-top-attr-addition,
+                $alignment-middle-attr-addition,
+                $alignment-bottom-attr-addition,
+                $alignment-stretch-attr-addition
+        );
+    }
+
+    @if index($alignment-feature, responsive) {
+        @include srgrid-generate-alignment-responsive-feature(
+                $row-attr-name,
+                $alignment-start-attr-addition,
+                $alignment-center-attr-addition,
+                $alignment-end-attr-addition,
+                $alignment-top-attr-addition,
+                $alignment-middle-attr-addition,
+                $alignment-bottom-attr-addition,
+                $alignment-stretch-attr-addition
+        );
+    }
+
+    @if index($alignment-feature, between) {
+        @include srgrid-generate-alignment-between-feature(
+                $row-attr-name,
+                $alignment-start-attr-addition,
+                $alignment-center-attr-addition,
+                $alignment-end-attr-addition,
+                $alignment-top-attr-addition,
+                $alignment-middle-attr-addition,
+                $alignment-bottom-attr-addition,
+                $alignment-stretch-attr-addition
+        );
+    }
+
+    @if index($alignment-feature, only) {
+        @include srgrid-generate-alignment-only-feature(
+                $row-attr-name,
+                $alignment-start-attr-addition,
+                $alignment-center-attr-addition,
+                $alignment-end-attr-addition,
+                $alignment-top-attr-addition,
+                $alignment-middle-attr-addition,
+                $alignment-bottom-attr-addition,
+                $alignment-stretch-attr-addition,
+                $only-attr-addition
+        );
+    }
+}

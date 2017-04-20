@@ -1,0 +1,146 @@
+////
+//// @group feature/fluid
+///
+
+/// Generate base of the fluid feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $fluid-column-attr-value - Fluid column attribute value
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-fluid-feature-base(
+    $column-attr-name,
+    $fluid-column-attr-value,
+    $column-count
+) {
+    @for $column-index from 0 through $column-count {
+        $selector: srgrid-generate-attr-selector(
+                $column-attr-name,
+                srgrid-join-attr-values($fluid-column-attr-value, $column-index)
+        );
+        #{$selector} {
+            $column-width: srgrid-round-percentage(100% / $column-count * $column-index);
+            @if $column-index == 0 {
+                $column-width: 100%; // Reset fluid feature
+            }
+
+            flex-basis: $column-width;
+            max-width: $column-width;
+        }
+    }
+}
+
+/// Generate `regular` mode of the fluid feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-fluid-regular-feature(
+    $column-attr-name,
+    $column-count
+) {
+    @include srgrid-generate-fluid-feature-base(
+            $column-attr-name,
+            '',
+            $column-count
+    );
+}
+
+/// Generate `responsive` mode of the fluid feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-fluid-responsive-feature(
+    $column-attr-name,
+    $column-count
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-fluid-feature-base(
+                $column-attr-name,
+                $breakpoint-name,
+                $column-count
+        );
+    }
+}
+
+/// Generate `between` mode of the fluid feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-fluid-between-feature(
+    $column-attr-name,
+    $column-count
+) {
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-fluid-feature-base(
+                $column-attr-name,
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name),
+                $column-count
+        );
+    }
+}
+
+/// Generate `only` mode of the fluid feature
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $only-attr-addition - Only attribute addition
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-fluid-only-feature(
+    $column-attr-name,
+    $only-attr-addition,
+    $column-count
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-fluid-feature-base(
+                $column-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition),
+                $column-count
+        );
+    }
+}
+
+/// Generate the fluid feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-fluid-feature(
+    $grid-id
+) {
+    // Get feature variables
+    $fluid-feature: srgrid-get-grid-setting($grid-id, fluid-feature);
+    $column-attr-name: srgrid-get-grid-setting($grid-id, column-attr-name);
+    $column-count: srgrid-get-grid-setting($grid-id, column-count);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    $feature-check: srgrid-check-feature-settings('Fluid', $fluid-feature);
+
+    @if index($fluid-feature, regular) {
+        @include srgrid-generate-fluid-regular-feature(
+            $column-attr-name,
+            $column-count
+        );
+    }
+
+    @if index($fluid-feature, responsive) {
+        @include srgrid-generate-fluid-responsive-feature(
+            $column-attr-name,
+            $column-count
+        );
+    }
+
+    @if index($fluid-feature, between) {
+        @include srgrid-generate-fluid-between-feature(
+            $column-attr-name,
+            $column-count
+        );
+    }
+
+    @if index($fluid-feature, only) {
+        @include srgrid-generate-fluid-only-feature(
+            $column-attr-name,
+            $only-attr-addition,
+            $column-count
+        );
+    }
+}

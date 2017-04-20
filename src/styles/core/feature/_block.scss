@@ -1,0 +1,178 @@
+////
+//// @group feature/block
+///
+
+/// Generate base of the block feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $block-row-attr-value - Block row attribute value
+/// @param {String} $col-attr-name - Column attribute name
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-block-feature-base (
+    $row-attr-name,
+    $block-row-attr-value,
+    $col-attr-name,
+    $column-count
+) {
+    @for $column-index from 1 through $column-count {
+        $col-width: srgrid-round-percentage(100% / $column-index);
+
+        $row-selector: srgrid-generate-attr-selector(
+                $row-attr-name,
+                srgrid-join-attr-values($block-row-attr-value, $column-index)
+        );
+        $col-selector: srgrid-generate-attr-selector($col-attr-name);
+        #{$row-selector} {
+            #{$col-selector} {
+                flex-basis: $col-width;
+                max-width: $col-width;
+            }
+        }
+    }
+}
+
+/// Generate `regular` mode of the block feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $block-attr-addition - Block attribute addition
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-block-regular-feature(
+    $row-attr-name,
+    $column-attr-name,
+    $block-attr-addition,
+    $column-count
+) {
+    @include srgrid-generate-block-feature-base (
+            $row-attr-name,
+            $block-attr-addition,
+            $column-attr-name,
+            $column-count
+    );
+}
+
+/// Generate `responsive` mode of the block feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $block-attr-addition - Block attribute addition
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-block-responsive-feature(
+    $row-attr-name,
+    $column-attr-name,
+    $block-attr-addition,
+    $column-count
+) {
+    @include srgrid-generate-responsive-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-block-feature-base (
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $block-attr-addition),
+                $column-attr-name,
+                $column-count
+        );
+    }
+}
+
+/// Generate `between` mode of the block feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $block-attr-addition - Block attribute addition
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-block-between-feature(
+    $row-attr-name,
+    $column-attr-name,
+    $block-attr-addition,
+    $column-count
+) {
+    @include srgrid-generate-between-feature() {
+        // Get temp variables
+        $start-breakpoint-name: srgrid-get-temp-setting(start-breakpoint-name);
+        $end-breakpoint-name: srgrid-get-temp-setting(end-breakpoint-name);
+
+        @include srgrid-generate-block-feature-base (
+                $row-attr-name,
+                srgrid-join-attr-values($start-breakpoint-name, $end-breakpoint-name, $block-attr-addition),
+                $column-attr-name,
+                $column-count
+        );
+    }
+}
+
+/// Generate `only` mode of the block feature
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {String} $column-attr-name - Column attribute name
+/// @param {String} $block-attr-addition - Block attribute addition
+/// @param {String} $only-attr-addition - Only attribute addition
+/// @param {Number} $column-count - Column count
+@mixin srgrid-generate-block-only-feature(
+    $row-attr-name,
+    $column-attr-name,
+    $block-attr-addition,
+    $only-attr-addition,
+    $column-count
+) {
+    @include srgrid-generate-only-feature() {
+        // Get temp variables
+        $breakpoint-name: srgrid-get-temp-setting(breakpoint-name);
+
+        @include srgrid-generate-block-feature-base (
+                $row-attr-name,
+                srgrid-join-attr-values($breakpoint-name, $only-attr-addition, $block-attr-addition),
+                $column-attr-name,
+                $column-count
+        );
+    }
+}
+
+/// Generate the block feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-block-feature(
+        $grid-id
+) {
+    // Get feature variables
+    $block-feature: srgrid-get-grid-setting($grid-id, block-feature);
+    $row-attr-name: srgrid-get-grid-setting($grid-id, row-attr-name);
+    $column-attr-name: srgrid-get-grid-setting($grid-id, column-attr-name);
+    $block-attr-addition: srgrid-get-grid-setting($grid-id, block-attr-addition);
+    $column-count: srgrid-get-grid-setting($grid-id, column-count);
+    $only-attr-addition: srgrid-get-grid-setting($grid-id, only-attr-addition);
+
+    $feature-check: srgrid-check-feature-settings('Block', $block-feature);
+
+    @if index($block-feature, regular) {
+        @include srgrid-generate-block-regular-feature(
+                $row-attr-name,
+                $column-attr-name,
+                $block-attr-addition,
+                $column-count
+        );
+    }
+
+    @if index($block-feature, responsive) {
+        @include srgrid-generate-block-responsive-feature(
+                $row-attr-name,
+                $column-attr-name,
+                $block-attr-addition,
+                $column-count
+        );
+    }
+
+    @if index($block-feature, between) {
+        @include srgrid-generate-block-between-feature(
+                $row-attr-name,
+                $column-attr-name,
+                $block-attr-addition,
+                $column-count
+        );
+    }
+
+    @if index($block-feature, only) {
+        @include srgrid-generate-block-only-feature(
+                $row-attr-name,
+                $column-attr-name,
+                $block-attr-addition,
+                $only-attr-addition,
+                $column-count
+        );
+    }
+}

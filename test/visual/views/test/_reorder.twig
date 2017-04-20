@@ -1,0 +1,86 @@
+<h2>Reorder Feature</h2>
+
+<section id="test_reorder_regular">
+    <h3>Regular</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <h4>Default</h4>
+        <div {{ sRGrid.rowAttrName }}>
+            {% for i in 1..3 %}
+                <div {{ sRGrid.columnAttrName }}>
+                    <div class="test" data-test-text="({{ loop.index }})"></div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h4>Reorder</h4>
+        <div class="test-wrapper">
+            <div {{ sRGrid.rowAttrName }}>
+                {% for i in [1, 3, 2] %}
+                    {% set columnAttrValue = sRGrid.reorderInfix ~ "-" ~ i %}
+                    <div {{ sRGrid.columnAttrName }}={{ columnAttrValue }}>
+                        <div class="test" data-test-text="({{ loop.index }})"></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="test_reorder_responsive">
+    <h3>Responsive</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% set columnAttrValue = "" %}
+            {% for breakpointName in sRBreakpoints.breakpointNames  %}
+                <div {{ sRGrid.rowAttrName }}>
+                    {% for i in [1, 3, 2] %}
+                        {% set columnAttrValue = breakpointName ~ "-" ~ sRGrid.reorderInfix ~ "-" ~ i %}
+                        <div {{ sRGrid.columnAttrName }}={{ columnAttrValue }}>
+                            <div class="test" data-test-text="{{ columnAttrValue }} ({{ loop.index }})"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_reorder_between">
+    <h3>Between</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% set startBreakpointName = sRBreakpoints.breakpointNames[0] %}
+            {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% if loop.first == false %}
+                    {% set endBreakpointName = sRBreakpoints.breakpointNames[loop.index - 1] %}
+                    <div {{ sRGrid.rowAttrName }}>
+                        {% for i in [1, 3, 2] %}
+                            {% set columnAttrValue = startBreakpointName ~ "-" ~ endBreakpointName ~ "-" ~ sRGrid.reorderInfix ~ "-" ~ i %}
+                            <div {{ sRGrid.columnAttrName }}={{ columnAttrValue }}>
+                                <div class="test" data-test-text="{{ columnAttrValue }} ({{ loop.index }})"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_reorder_only">
+    <h3>Only</h3>
+    <div {{ sRGrid.gridAttrName }}>
+        <div class="test-wrapper">
+            {% for breakpointName in sRBreakpoints.breakpointNames %}
+                <div {{ sRGrid.rowAttrName }}>
+                    {% for i in [1, 3, 2] %}
+                        {% set columnAttrValue = breakpointName ~ "-" ~ sRGrid.onlyInfix ~ "-" ~ sRGrid.reorderInfix ~ "-" ~ i%}
+                        <div {{ sRGrid.columnAttrName }}={{ columnAttrValue }}>
+                            <div class="test" data-test-text="{{ columnAttrValue }} ({{ loop.index }})"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

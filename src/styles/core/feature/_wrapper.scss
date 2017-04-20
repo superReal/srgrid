@@ -1,0 +1,41 @@
+////
+//// @group feature/wrapper
+///
+
+/// Generate base of the wrapper feature
+/// @param {Number} $wrapper-max-width - Wrapper max width
+@mixin srgrid-generate-wrapper-base(
+    $wrapper-max-width
+) {
+    max-width: #{$wrapper-max-width}px;
+    margin: 0 auto;
+}
+
+/// Generate the wrapper feature
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-wrapper-feature(
+        $grid-id
+) {
+    // Get feature variables
+    $wrapper-feature: srgrid-get-grid-setting($grid-id, wrapper-feature);
+    $wrapper-attr-name: srgrid-get-grid-setting($grid-id, wrapper-attr-name);
+    $wrapper-max-widths: srgrid-get-grid-setting($grid-id, wrapper-max-widths);
+
+    // Check feature settings
+    $feature-check: srgrid-check-feature-settings('Wrapper', $wrapper-feature, true);
+
+    // Generate feature
+    $selector: srgrid-generate-attr-selector($wrapper-attr-name);
+    #{$selector} {
+        $breakpoints: srbreakpoints-get-breakpoints();
+        @each $breakpoint-name, $wrapper-max-width in $wrapper-max-widths {
+            @if map-has-key($breakpoints, $breakpoint-name) == false {
+                @error 'The breakpoint `#{$breakpoint-name}` which declared at `$wrapper-max-widths` was not found!'; /* stylelint-disable-line */
+            }
+
+            @include srbreakpoints-wrap-content-within($breakpoint-name) {
+                @include srgrid-generate-wrapper-base($wrapper-max-width);
+            }
+        }
+    }
+}

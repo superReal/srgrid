@@ -1,0 +1,7 @@
+/* stylelint-disable selector-id-pattern, selector-no-id */
+#test_nested-grids_with-extra-grid,
+#test_nested-grids_without-extra-grid {
+    [data-grid] {
+        background: rgba($color-red, .3);
+    }
+}

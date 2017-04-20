@@ -1,0 +1,19 @@
+<h2>Base</h2>
+
+<section id="test_base">
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% set columnCounts = [1, 2, 3] %}
+
+            {% for columnCount in columnCounts %}
+                <div {{ sRGrid.rowAttrName }}>
+                    {% for i in 1..columnCount %}
+                        <div {{ sRGrid.columnAttrName }}>
+                            <div class="test"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

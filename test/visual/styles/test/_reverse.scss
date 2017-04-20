@@ -1,0 +1,11 @@
+/* stylelint-disable selector-id-pattern, selector-no-id, selector-attribute-quotes */
+#test_reverse_regular,
+#test_reverse_responsive,
+#test_reverse_between,
+#test_reverse_only {
+    @for $i from 1 through 3 {
+        [data-test-text*='(#{$i})'] {
+            opacity: 1 / $i * 1.5;
+        }
+    }
+}

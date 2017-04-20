@@ -1,0 +1,124 @@
+////
+//// @group base
+///
+
+/// Generate grid element
+/// @param {String} $grid-attr-name - Grid attribute name
+@mixin srgrid-generate-grid-element(
+    $grid-attr-name
+) {
+    $selector: srgrid-generate-attr-selector($grid-attr-name);
+    #{$selector} {
+        overflow-x: hidden;
+    }
+}
+
+/// Generate base of a row element
+/// @param {Number|Map} $gutter-width - Gutter widths
+@mixin srgrid-generate-row-element-base(
+    $gutter-width
+) {
+    margin-left: #{-$gutter-width / 2}px;
+    margin-right: #{-$gutter-width / 2}px;
+}
+
+/// Generate row element
+/// @param {String} $row-attr-name - Row attribute name
+/// @param {Number|Map} $gutter-width - Gutter widths
+@mixin srgrid-generate-row-element(
+    $row-attr-name,
+    $gutter-widths
+) {
+    $selector: srgrid-generate-attr-selector($row-attr-name);
+    #{$selector} {
+        box-sizing: border-box;
+        display: flex;
+        flex: 0 1 auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        @if length($gutter-widths) == 1 {
+            @include srgrid-generate-row-element-base($gutter-widths);
+        } @else {
+            $breakpoints: srbreakpoints-get-breakpoints();
+            $breakpoint-names: srbreakpoints-get-breakpoint-names();
+            $gutter-widths: map-values($gutter-widths);
+
+            @for $index from 1 through length(srbreakpoints-get-breakpoints()) {
+                $breakpoint-name: nth($breakpoint-names, $index);
+                $gutter-width: nth($gutter-widths, $index);
+
+                @include srbreakpoints-wrap-content-within($breakpoint-name) {
+                    @include srgrid-generate-row-element-base($gutter-width);
+                }
+            }
+        }
+    }
+}
+
+/// Generate base of a column element
+/// @param {Number|Map} $gutter-width - Gutter widths
+@mixin srgrid-generate-grid-column-base(
+    $gutter-width
+) {
+    padding-left: #{$gutter-width / 2}px;
+    padding-right: #{$gutter-width / 2}px;
+}
+
+@mixin srgrid-generate-column-element(
+    $column-attr-name,
+    $gutter-widths
+) {
+    $selector: srgrid-generate-attr-selector($column-attr-name);
+    #{$selector} {
+        box-sizing: border-box;
+        flex: 1 0 auto;
+
+        @if length($gutter-widths) == 1 {
+            @include srgrid-generate-grid-column-base($gutter-widths);
+        } @else {
+            $breakpoints: srbreakpoints-get-breakpoints();
+            $breakpoint-names: srbreakpoints-get-breakpoint-names();
+            $gutter-widths: map-values($gutter-widths);
+
+            @for $index from 1 through length(srbreakpoints-get-breakpoints()) {
+                $breakpoint-name: nth($breakpoint-names, $index);
+                $gutter-width: nth($gutter-widths, $index);
+
+                @include srbreakpoints-wrap-content-within($breakpoint-name) {
+                    @include srgrid-generate-grid-column-base($gutter-width);
+                }
+            }
+        }
+    }
+}
+
+
+/// Generate base of the grid
+/// @param {String} $grid-id - Grid id
+@mixin srgrid-generate-base(
+    $grid-id
+) {
+    // Get grid variables from the global scope
+    $grid-attr-name: srgrid-get-grid-setting($grid-id, grid-attr-name);
+    $row-attr-name: srgrid-get-grid-setting($grid-id, row-attr-name);
+    $column-attr-name: srgrid-get-grid-setting($grid-id, column-attr-name);
+    $gutter-widths: srgrid-get-grid-setting($grid-id, gutter-widths);
+
+    // Grid
+    @include srgrid-generate-grid-element(
+            $grid-attr-name
+    );
+
+    // Row
+    @include srgrid-generate-row-element(
+            $row-attr-name,
+            $gutter-widths
+    );
+
+    // Column
+    @include srgrid-generate-column-element(
+            $column-attr-name,
+            $gutter-widths
+    );
+}

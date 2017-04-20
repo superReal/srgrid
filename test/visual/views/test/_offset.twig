@@ -1,0 +1,76 @@
+<h2>Offset Feature</h2>
+
+<section id="test_offset_regular">
+    <h3>Regular</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% for offset in [5, 15] %}
+                <div {{ sRGrid.rowAttrName }}>
+                    {% set offsetAttrValue = sRGrid.offsetInfix ~ "-" ~ offset %}
+                    <div {{ sRGrid.columnAttrName }}="{{ offsetAttrValue }}">
+                        <div class="test" data-test-text="{{ offsetAttrValue }}"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_offset_responsive">
+    <h3>Responsive</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% set offsetAttrValue = "" %}
+            {% for offset in [5, 20, 5, 20, 0, 20] %}
+                {% set offsetAttrValue = offsetAttrValue ~ " " ~ sRBreakpoints.breakpointNames[loop.index - 1] ~ "-" ~ sRGrid.offsetInfix ~ "-" ~ offset %}
+            {% endfor %}
+            <div {{ sRGrid.rowAttrName }}>
+                <div {{ sRGrid.columnAttrName }}="{{ offsetAttrValue }}">
+                <div class="test" data-test-text="{{ offsetAttrValue }}"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+<section id="test_offset_between">
+    <h3>Between</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% set betweenOffset = 15 %}
+            {% set startBreakpointName = sRBreakpoints.breakpointNames[0] %}
+            {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% if loop.first == false %}
+                    {% set endBreakpointName = sRBreakpoints.breakpointNames[loop.index - 1] %}
+                    {% set offsetAttrValue = startBreakpointName ~ "-" ~ endBreakpointName  ~ "-" ~ sRGrid.offsetInfix ~ "-" ~ betweenOffset %}
+                    <div {{ sRGrid.rowAttrName }}>
+                            <div {{ sRGrid.columnAttrName }}="{{ offsetAttrValue }}">
+                            <div class="test" data-test-text="{{ offsetAttrValue }}"></div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="test_offset_only">
+    <h3>Only</h3>
+
+    <div class="test-wrapper">
+        <div {{ sRGrid.gridAttrName }}>
+            {% set onlyOffset = 15 %}
+            {% for breakpoinName in sRBreakpoints.breakpointNames  %}
+                {% set offsetAttrValue = sRBreakpoints.breakpointNames[loop.index - 1] ~ "-" ~ sRGrid.onlyInfix ~ "-" ~ sRGrid.offsetInfix ~ "-" ~ onlyOffset %}
+                <div {{ sRGrid.rowAttrName }}>
+                    <div {{ sRGrid.columnAttrName }}="{{ offsetAttrValue }}">
+                        <div class="test" data-test-text="{{ offsetAttrValue }}"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

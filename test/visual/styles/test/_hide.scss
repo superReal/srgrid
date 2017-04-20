@@ -1,0 +1,16 @@
+/* stylelint-disable selector-id-pattern, selector-no-id */
+#test_hide_responsive,
+#test_hide_between,
+#test_hide_only {
+    .test-wrapper {
+        [data-grid-row] {
+            @for $i from 1 through length(srbreakpoints-get-breakpoint-names()) {
+                &:nth-of-type(#{$i}) {
+                    .test {
+                        opacity: 1 / $i * 1.5;
+                    }
+                }
+            }
+        }
+    }
+}
