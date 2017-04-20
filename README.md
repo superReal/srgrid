@@ -1,12 +1,19 @@
 # sR Grid
 > Dead Simple Flexbox Grid
 
+[![Dependency Status](https://david-dm.org/superReal/srgrid.svg)](https://david-dm.org/superReal/srgrid)
+[![devDependencies Status](https://david-dm.org/superreal/srgrid/dev-status.svg)](https://david-dm.org/superreal/srgrid?type=dev)
+[![Code Climate](https://codeclimate.com/github/superReal/srgrid/badges/gpa.svg)](https://codeclimate.com/github/superReal/srgrid)
+[![Build Status](https://travis-ci.org/superReal/srgrid.svg?branch=master)](https://travis-ci.org/superReal/srgrid)
+[![Known Vulnerabilities](https://snyk.io/test/github/superReal/srgrid/badge.svg)](https://snyk.io/test/github/superReal/srgrid)
+
 sR Grid is a flexible and fully responsive grid system based on [Flexbox](https://www.w3.org/TR/css-flexbox-1/).
 It follows the mobile first approach and the features are module-based. In the default setup each feature is disabled 
 and can be enabled as required. In this way the generated code remains as small as possible.
 
 The sR Grid uses data attributes. The markup remains clear and easy to understand.
 
+**Note that the README on the `master` branch might not match the one in the [latest stable release](https://github.com/superReal/srgrid/releases/latest)!**
 
 
 ## Contents
