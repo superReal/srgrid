@@ -284,7 +284,7 @@ The hide feature is used to hide an element on the page.
 ```html
 <div data-srgrid>
     <div data-srgrid-row>
-        <div data-srgrid-col data-grid-hide="m-l"> <!-- hide element -->
+        <div data-srgrid-col data-srgrid-hide="m-l"> <!-- hide element -->
             ...
         </div>
     </div>
