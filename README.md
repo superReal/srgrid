@@ -83,10 +83,12 @@ The feature settings always apply.
 
 **Example markup**
 
-*The `div` element will always be two columns wide.*
+![](media/srgrid-regular-mode.gif)
+
+*The `div` element will always be ten columns wide.*
 
 ```html
-<div data-srgrid-col="2"></div>
+<div data-srgrid-col="10"></div>
 ```
 
 
@@ -96,11 +98,13 @@ The feature settings are following an upward inheritance from each specific brea
 
 **Example markup**
 
-*The `div` element will be two columns wide from breakpoint "m" upwards. Within the default setting this width applies
+![](media/srgrid-responsive-mode.gif)
+
+*The `div` element will be ten columns wide from breakpoint "m" upwards. Within the default setting this width applies
 to the breakpoints "m", "l" and "xl".*
 
 ```html
-<div data-srgrid-col="m-2">...</div>
+<div data-srgrid-col="m-10">...</div>
 ```
 
 
@@ -110,11 +114,13 @@ The feature settings apply between two specific breakpoints.
 
 **Example markup**
 
-*The `div` element will be two columns wide between the breakpoints "xs" and "m". Within default setting this width
+![](media/srgrid-between-mode.gif)
+
+*The `div` element will be ten columns wide between the breakpoints "xs" and "m". Within default setting this width
 applies to the breakpoints "xs", "s" and "m".*
 
 ```html
-<div data-srgrid-col="xs-m-2">...</div>
+<div data-srgrid-col="xs-m-10">...</div>
 ```
 
 
@@ -124,10 +130,12 @@ The feature settings only apply to a specific breakpoint.
 
 **Example markup**
 
-*The `div` element will be two columns wide in breakpoint "m" only.*
+![](media/srgrid-only-mode.gif)
+
+*The `div` element will be ten columns wide in breakpoint "m" only.*
 
 ```html
-<div data-srgrid-col="m-only-2">...</div>
+<div data-srgrid-col="m-only-10">...</div>
 ```
 
 
@@ -235,13 +243,15 @@ The wrapper feature is used for centering areas with a maximum width.
 
 **Example implementation**
 
-*The element with the wrapper attribute will have a maximum width of 400 px in breakpoint "xs"
+![](media/srgrid-wrapper-feature.gif)
+
+*The element with the wrapper attribute will have a maximum width of 600 px in breakpoint "s"
 and 1400 px in breakpoint "xl".*
 
 ```sass
 @include srgrid-create-grid(
     $wrapper-feature: true,
-    $wrapper-max-widths: (xs: 400, xl: 1400)
+    $wrapper-max-widths: (s: 600, xl: 1400)
 );
 ```
 
@@ -273,6 +283,8 @@ The hide feature is used to hide an element on the page.
 
 **Example implementation**
 
+![](media/srgrid-hide-feature.gif)
+
 *The hide element is hidden between breakpoints "m" and "l".*
 
 ```sass
@@ -303,6 +315,8 @@ The fluid feature is used for a better control of the columns.
 | `$fluid-feature` | Fluid feature modes | Null/List | `null` |
 
 **Example implementation**
+
+![](media/srgrid-fluid-feature.gif)
 
 *The fluid element will be 20 columns wide in breakpoint "l" and 10 columns wide in all other breakpoints.*
 
@@ -338,6 +352,8 @@ The offset feature is used to move elements by the width of columns.
 
 **Example implementation**
 
+![](media/srgrid-offset-feature.gif)
+
 *Within the breakpoints "xs" and "s" the offset element is moved to the right by 4 columns, within breakpoints "m" 
 and "l" by 6 columns and within breakpoint "xl" by 0 columns, therefore not at all.*
 
@@ -372,6 +388,8 @@ The distribution feature is used for positioning elements within the columns.
 
 **Example implementation**
 
+![](media/srgrid-distribution-feature.gif)
+
 *The elements in the distribution element are positioned on the left in the breakpoint "xs".
 They are centered in breakpoints "s" and "m" and stretched in breakpoint "xl".*
 
@@ -384,9 +402,9 @@ They are centered in breakpoints "s" and "m" and stretched in breakpoint "xl".*
 ```html
 <div data-srgrid>
     <div data-srgrid-row="s-around xl-between"> <!-- distribution element -->
-        <div data-srgrid-col>...</div>
-        <div data-srgrid-col>...</div>
-        <div data-srgrid-col>...</div>
+        <div data-srgrid-col="10">...</div>
+        <div data-srgrid-col="10">...</div>
+        <div data-srgrid-col="10">...</div>
     </div>
 </div>
 ```
@@ -404,6 +422,8 @@ The reverse feature is used to position an element within the rows in an inverse
 | `$reverse-attr-addition` | Reverse attribute addition | String | `'reverse'` |
 
 **Example implementation**
+
+![](media/srgrid-reverse-feature.gif)
 
 *The elements in the reverse element are displayed in a reverse order (3, 2, 1) from breakpoint "m" upwards.*
 
@@ -437,6 +457,8 @@ The reorder feature is used for a more accurate repositioning of columns.
 
 **Example implementation**
 
+![](media/srgrid-reorder-feature.gif)
+
 *Starting from the breakpoint "m" the third reorder element is positioned to the left of the first reorder element.*
 
 ```sass
@@ -448,9 +470,9 @@ The reorder feature is used for a more accurate repositioning of columns.
 ```html
 <div data-srgrid>
     <div data-srgrid-row>
-        <div data-srgrid-col="m-reorder-1">1</div> <!-- reorder element -->
-        <div data-srgrid-col="m-reorder-2">2</div> <!-- reorder element -->
-        <div data-srgrid-col="m-reorder-0">3</div> <!-- reorder element -->
+        <div data-srgrid-col="m-reorder-2">1</div> <!-- reorder element -->
+        <div data-srgrid-col="m-reorder-3">2</div> <!-- reorder element -->
+        <div data-srgrid-col="m-reorder-1">3</div> <!-- reorder element -->
     </div>
 </div>
 ```
@@ -478,6 +500,8 @@ to the vertical alignment.*
 
 **Example implementation**
 
+![](media/srgrid-alignment-feature.gif)
+
 *Initially all elements within the alignment element are centered horizontally and aligned to the top. Starting from 
 breakpoint "m" they are positioned in the middle (vertically). In breakpoint "xl" they are positioned below 
 (horizontally).*
@@ -491,10 +515,10 @@ breakpoint "m" they are positioned in the middle (vertically). In breakpoint "xl
 ```html
 <div data-srgrid>
     <div data-srgrid-row="center top m-middle xl-end"> <!-- alignment element -->
-        <div data-srgrid-col>
+        <div data-srgrid-col="10">
             <div class="box"></div>
         </div> 
-        <div data-srgrid-col>
+        <div data-srgrid-col="10">
             <div class="box box_large"></div>
         </div>
     </div>
@@ -517,6 +541,8 @@ The align column feature is used for vertical positioning of elements inside the
 | `$align-column-stretch-attr-addition` | Align column stretch attribute addition | String | `'stretch'` | 
 
 **Example implementation**
+
+![](media/srgrid-align-column-feature.gif)
 
 *The first align column element is always aligned downwards. The second align column element is centered vertically 
 from breakpoint "m" upwards.*
@@ -558,7 +584,9 @@ global grid.
 
 **Example implementation**
 
-*The elements within the block element will initially be 3 columns wide. Starting from breakpoint "m" they will be 10 
+![](media/srgrid-block-feature.gif)
+
+*The elements within the block element will initially be 2 columns wide. Starting from breakpoint "m" they will be 3 
 columns wide.*
 
 ```sass
@@ -569,7 +597,7 @@ columns wide.*
 
 ```html
 <div data-srgrid>
-    <div data-srgrid-row="block-3 m-block-10"> <!-- block element -->
+    <div data-srgrid-row="block-2 m-block-3"> <!-- block element -->
         <div data-srgrid-col>...</div>
         <div data-srgrid-col>...</div>
         <div data-srgrid-col>...</div>
@@ -592,7 +620,9 @@ The gapless feature is used to remove the gaps within row elements.
 
 **Example implementation**
 
-*All elements within the gapless element are free of gaps.*
+![](media/srgrid-gapless-feature.gif)
+
+*Starting from breakpoint "l" all elements within the gapless element are free of gaps.*
 
 ```sass
 @include srgrid-create-grid(
@@ -602,7 +632,7 @@ The gapless feature is used to remove the gaps within row elements.
 
 ```html
 <div data-srgrid>
-    <div data-srgrid-row="gapless"> <!-- gapless element -->
+    <div data-srgrid-row="l-gapless"> <!-- gapless element -->
         <div data-srgrid-col>...</div>
         <div data-srgrid-col>...</div>
         <div data-srgrid-col>...</div>
@@ -625,7 +655,9 @@ markup.
 
 **Example implementation**
 
-*The first column fractions element will be one third wide, the second element will be two-thirds wide.*
+![](media/srgrid-column-fractions-feature.gif)
+
+*Starting from breakpoint "m" the first column fractions element will be one half wide, the second element will be one third wide.*
 
 ```sass
 @include srgrid-create-grid(
@@ -636,8 +668,8 @@ markup.
 ```html
 <div data-srgrid>
     <div data-srgrid-row>
-        <div data-srgrid-col="1-3">...</div> <!-- column fractions element -->
-        <div data-srgrid-col="2-3">...</div> <!-- column fractions element -->
+        <div data-srgrid-col="m-1-2">...</div> <!-- column fractions element -->
+        <div data-srgrid-col="m-1-3">...</div> <!-- column fractions element -->
     </div>
 </div>
 ```
