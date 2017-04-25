@@ -245,13 +245,13 @@ The wrapper feature is used for centering areas with a maximum width.
 
 ![](media/srgrid-wrapper-feature.gif)
 
-*The element with the wrapper attribute will have a maximum width of 400 px in breakpoint "xs"
+*The element with the wrapper attribute will have a maximum width of 600 px in breakpoint "s"
 and 1400 px in breakpoint "xl".*
 
 ```sass
 @include srgrid-create-grid(
     $wrapper-feature: true,
-    $wrapper-max-widths: (xs: 400, xl: 1400)
+    $wrapper-max-widths: (s: 600, xl: 1400)
 );
 ```
 
@@ -388,7 +388,7 @@ The distribution feature is used for positioning elements within the columns.
 
 **Example implementation**
 
-![](media/srgrid-offset-feature.gif)
+![](media/srgrid-distribution-feature.gif)
 
 *The elements in the distribution element are positioned on the left in the breakpoint "xs".
 They are centered in breakpoints "s" and "m" and stretched in breakpoint "xl".*
@@ -641,8 +641,8 @@ The gapless feature is used to remove the gaps within row elements.
 ```
 
 
-### 
-Column Fractions Feature
+### Column Fractions Feature
+
 The column fractions feature simplifies the work with column widths and therefore increases the readability of the 
 markup.
 
