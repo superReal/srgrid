@@ -13,15 +13,15 @@
     "extends": "stylelint-config-superreal"
   },
   "scripts": {
-    "start": "webpack-dev-server --config test/visual/webpack.config.js",
-    "prebuild": "rimraf test/visual/dist",
     "build": "webpack --config test/visual/webpack.config.js",
     "lint": "./pre-commit.sh && exit 0",
-    "test": "cross-env NODE_ENV=production npm run test:visual",
-    "pretest:visual": "npm run build",
-    "test:visual": "backstop test --configPath=test/visual/backstop",
+    "prebuild": "rimraf test/visual/dist",
     "pretest:reference": "npm run build",
-    "test:reference": "backstop reference --configPath=./test/visual/backstop"
+    "pretest:visual": "npm run build",
+    "test": "cross-env NODE_ENV=production npm run test:visual",
+    "test:reference": "backstop reference --configPath=./test/visual/backstop",
+    "test:visual": "backstop test --configPath=test/visual/backstop",
+    "start": "webpack-dev-server --config test/visual/webpack.config.js"
   },
   "precommit": "lint",
   "repository": {
