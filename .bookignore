@@ -1,0 +1,16 @@
+src/
+test/
+.bookignore
+.codeclimate.yml
+.editorconfig
+.eslintignore
+.gitattributes
+.gitignore
+.nvmrc
+.travis.yml
+CHANGELOG.md
+CONTRIBUTING.md
+LICENSE
+package.json
+pre-commit.sh
+yarn.lock
