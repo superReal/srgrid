@@ -25,6 +25,7 @@ The sR Grid uses data attributes. The markup remains clear and easy to understan
 - [Advanced](#advanced)
 - [Helper mixins](#helper-mixins)
 - [Helper functions](#helper-functions)
+- [Browser compatibility](#browser-compatibility)
 
 
 
@@ -793,6 +794,19 @@ The module provides a pair of helper functions to simplify the work:
 - `srgrid-get-grid-setting($grid-id,$setting-name)` - {*} Get a single grid setting
 - `srgrid-set-grid-setting($grid-id, $setting-name, $setting-value)` - {*} Set a single grid setting
 
+
+
+## Browser compatibility
+
+### Desktop
+| Chrome | Firefox | Safari | Opera | EDGE | Internet Explorer |
+|:------:|:-------:|:------:|:-----:|:----:|:-----------------:|
+| 29     | 28      | 9      | 17    | 12   | 11                |
+
+### Mobile
+| Chrome for Android | iOS Safari | Android Browser | Samsung Internet |
+|:------------------:|:----------:|:---------------:|:----------------:|
+| 57                 | 9.2        | 4.4             | 4                |
 
 
 ## License (MIT)
