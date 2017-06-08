@@ -1,0 +1,597 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Reorder Feature · sR Grid</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="author" content="superReal GmbH">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="alignment-feature.html" />
+    
+    
+    <link rel="prev" href="reverse-feature.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Table of Contents</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../settings.html">
+            
+                <a href="../settings.html">
+            
+                    
+                    Settings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../helpers.html">
+            
+                <a href="../helpers.html">
+            
+                    
+                    Helpers
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../helpers.html">
+            
+                <a href="../helpers.html#helper-mixins">
+            
+                    
+                    Helper mixins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../helpers.html">
+            
+                <a href="../helpers.html#helper-functions">
+            
+                    
+                    Helper functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Features
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="feature-modes.html">
+            
+                <a href="feature-modes.html">
+            
+                    
+                    Feature Modes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="wrapper-feature.html">
+            
+                <a href="wrapper-feature.html">
+            
+                    
+                    Wrapper Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="hide-feature.html">
+            
+                <a href="hide-feature.html">
+            
+                    
+                    Hide Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="fluid-feature.html">
+            
+                <a href="fluid-feature.html">
+            
+                    
+                    Fluid Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="offset-feature.html">
+            
+                <a href="offset-feature.html">
+            
+                    
+                    Offset Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="distribution-feature.html">
+            
+                <a href="distribution-feature.html">
+            
+                    
+                    Distribution Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="reverse-feature.html">
+            
+                <a href="reverse-feature.html">
+            
+                    
+                    Reverse Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.8" data-path="reorder-feature.html">
+            
+                <a href="reorder-feature.html">
+            
+                    
+                    Reorder Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="alignment-feature.html">
+            
+                <a href="alignment-feature.html">
+            
+                    
+                    Alignment Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="align-column-feature.html">
+            
+                <a href="align-column-feature.html">
+            
+                    
+                    Align Column Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="block-feature.html">
+            
+                <a href="block-feature.html">
+            
+                    
+                    Block Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="gapless-feature.html">
+            
+                <a href="gapless-feature.html">
+            
+                    
+                    Gapless Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="column-fractions-feature.html">
+            
+                <a href="column-fractions-feature.html">
+            
+                    
+                    Column Fractions Feature
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../advanced.html">
+            
+                <a href="../advanced.html">
+            
+                    
+                    Advanced
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../advanced.html">
+            
+                <a href="../advanced.html#globals">
+            
+                    
+                    Globals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../advanced.html">
+            
+                <a href="../advanced.html#nested-grids">
+            
+                    
+                    Nested Grids
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../advanced.html">
+            
+                <a href="../advanced.html#multi-grids">
+            
+                    
+                    Multi Grids
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Reorder Feature</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="reorder-feature">Reorder Feature</h1>
+<p>The reorder feature is used for a more accurate repositioning of columns.</p>
+<h2 id="settings">Settings</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Description</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>$reorder-feature</code></td>
+<td style="text-align:center">Reorder feature modes</td>
+<td style="text-align:center">Null/List</td>
+<td style="text-align:center"><code>null</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>$reorder-attr-addition</code></td>
+<td style="text-align:center">Reorder attribute addition</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center"><code>&apos;reorder&apos;</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="example-implementation">Example implementation</h2>
+<p><img src="../assets/srgrid-reorder-feature.gif" alt=""></p>
+<p><em>Starting from the breakpoint &quot;m&quot; the third reorder element is positioned to the left of the first reorder element.</em></p>
+<pre class="language-"><code class="lang-sass"><span class="token atrule-line"><span class="token atrule">@include</span> srgrid-create-grid(</span>
+<span class="token variable-line">    <span class="token variable">$reorder-feature</span><span class="token punctuation">:</span> responsive</span>
+<span class="token selector">);</span>
+</code></pre>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-srgrid</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-srgrid-row</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-srgrid-col</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>m-reorder-2<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span> <span class="token comment" spellcheck="true">&lt;!-- reorder element --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-srgrid-col</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>m-reorder-3<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span> <span class="token comment" spellcheck="true">&lt;!-- reorder element --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-srgrid-col</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>m-reorder-1<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span> <span class="token comment" spellcheck="true">&lt;!-- reorder element --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="reverse-feature.html" class="navigation navigation-prev " aria-label="Previous page: Reverse Feature">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="alignment-feature.html" class="navigation navigation-next " aria-label="Next page: Alignment Feature">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Reorder Feature","level":"1.4.8","depth":2,"next":{"title":"Alignment Feature","level":"1.4.9","depth":2,"path":"docs/features/alignment-feature.md","ref":"docs/features/alignment-feature.md","articles":[]},"previous":{"title":"Reverse Feature","level":"1.4.7","depth":2,"path":"docs/features/reverse-feature.md","ref":"docs/features/reverse-feature.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-highlight","anchorjs","codeblock-disable-glossary","edit-link","github","prism"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/superReal/srgrid/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"codeblock-disable-glossary":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/superReal/srgrid/tree/master"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","author":"superReal GmbH","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"sR Grid","gitbook":"3.2.2"},"file":{"path":"docs/features/reorder-feature.md","mtime":"2017-06-08T13:40:40.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-08T14:08:36.369Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-codeblock-disable-glossary/disable-glossary.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
