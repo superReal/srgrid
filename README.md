@@ -61,10 +61,10 @@ $ npm install --save @superreal/srbreakpoints @superreal/srgrid
 
 
 ## Documentation
-* [Settings](/docs/settings.md)
-* [Helpers](/docs/helpers.md)
-* [Features](/docs/features/README.md)
-* [Advanced](/docs/advanced.md)
+* [Settings](https://superreal.github.io/srgrid/docs/settings)
+* [Helpers](https://superreal.github.io/srgrid/docs/helpers)
+* [Features](https://superreal.github.io/srgrid/docs/features/)
+* [Advanced](https://superreal.github.io/srgrid/docs/advanced)
 
 
 ## License (MIT)
