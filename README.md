@@ -47,6 +47,18 @@ $ npm install --save @superreal/srbreakpoints @superreal/srgrid
 );
 ```
 
+## Browser compatibility
+
+### Desktop
+| Chrome | Firefox | Safari | Opera | EDGE | Internet Explorer |
+|:------:|:-------:|:------:|:-----:|:----:|:-----------------:|
+| 29     | 28      | 9      | 17    | 12   | 11                |
+
+### Mobile
+| Chrome for Android | iOS Safari | Android Browser | Samsung Internet |
+|:------------------:|:----------:|:---------------:|:----------------:|
+| 57                 | 9.2        | 4.4             | 4                |
+
 
 ## Documentation
 * [Settings](/docs/settings.md)
