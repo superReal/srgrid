@@ -2,7 +2,7 @@
 
 All features except the wrapper feature offer four different modes which can be activated when creating a grid.
 
-![](https://raw.githubusercontent.com/superReal/srgrid/master/media/srgrid-modes.png)
+![](/docs/assets/srgrid-modes.png)
 
 *Note: all features except the hide feature can be used exclusively in `responsive` mode. The `regular`, `between` and
 `only` modes were created to make the markup more readable.*
