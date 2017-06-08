@@ -1,0 +1,22 @@
+{
+    "title": "sR Grid",
+    "author": "superReal GmbH",
+    "gitbook": "3.2.2",
+    "plugins": [
+        "-highlight",
+        "anchorjs",
+        "codeblock-disable-glossary",
+        "edit-link",
+        "github",
+        "prism"
+    ],
+    "pluginsConfig": {
+        "edit-link": {
+            "base": "https://github.com/superReal/srgrid/tree/master",
+            "label": "Edit This Page"
+        },
+        "github": {
+            "url": "https://github.com/superReal/srgrid/"
+        }
+    }
+}

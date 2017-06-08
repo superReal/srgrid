@@ -6,3 +6,5 @@ test/visual/dist
 /test/visual/backstop/ci-report
 /test/visual/backstop/html-report
 /test/visual/backstop/tests
+
+/_book
