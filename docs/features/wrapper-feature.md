@@ -10,7 +10,7 @@ The wrapper feature is used for centering areas with a maximum width.
 | `$wrapper-attr-name` | Attribute name for the wrapper | String | `'data-#($grid-id)-wrapper'` |
 | `$wrapper-max-widths` | Maximum widths for the wrapper | Map | `(xl: 1200)` |
 
-*Note: the maximum width can also be determined for specific breakpoints and in other units except pixels.*
+*Note: the maximum width can also be determined for specific breakpoints and in other units than pixels.*
 
 ## Example implementation
 
