@@ -10,19 +10,19 @@ The wrapper feature is used for centering areas with a maximum width.
 | `$wrapper-attr-name` | Attribute name for the wrapper | String | `'data-#($grid-id)-wrapper'` |
 | `$wrapper-max-widths` | Maximum widths for the wrapper | Map | `(xl: 1200)` |
 
-*Note: the maximum width can also be determined for specific breakpoints.*
+*Note: the maximum width can also be determined for specific breakpoints and in other units than pixels.*
 
 ## Example implementation
 
 ![](/docs/assets/srgrid-wrapper-feature.gif)
 
-*The element with the wrapper attribute will have a maximum width of 600 px in breakpoint "s"
+*The element with the wrapper attribute will have a maximum width of 95 vw in breakpoint "s"
 and 1400 px in breakpoint "xl".*
 
 ```sass
 @include srgrid-create-grid(
     $wrapper-feature: true,
-    $wrapper-max-widths: (s: 600, xl: 1400)
+    $wrapper-max-widths: (s: 95vw, xl: 1400)
 );
 ```
 
