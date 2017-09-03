@@ -36,8 +36,8 @@ $ npm install --save @superreal/srbreakpoints @superreal/srgrid
 3. Create a sR Grid grid
 
 ```scss
-@import 'path_to_node_modules_folder/srbreakpoints/src/styles/srbreakpoints.scss';
-@import 'path_to_node_modules_folder/srgrid/src/styles/srgrid.scss';
+@import 'path_to_node_modules_folder/@superreal/srbreakpoints/src/styles/srbreakpoints.scss';
+@import 'path_to_node_modules_folder/@superreal/srgrid/src/styles/srgrid.scss';
 
 @include srbreakpoints-init(
  // Your sR Breakpoints settings
