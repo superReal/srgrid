@@ -25,6 +25,9 @@
     #{$start-selector} {
         justify-content: flex-start;
         text-align: left;
+        /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+        text-align: start;
+
     }
 
     $center-selector: srgrid-generate-attr-selector($row-attr-name, $center-row-attr-value);
@@ -37,6 +40,8 @@
     #{$end-selector} {
         justify-content: flex-end;
         text-align: right;
+        /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+        text-align: end;
     }
 
     $top-selector: srgrid-generate-attr-selector($row-attr-name, $top-row-attr-value);
