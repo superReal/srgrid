@@ -24,7 +24,7 @@
     $start-selector: srgrid-generate-attr-selector($row-attr-name, $start-row-attr-value);
     #{$start-selector} {
         justify-content: flex-start;
-        text-align: start;
+        text-align: left;
     }
 
     $center-selector: srgrid-generate-attr-selector($row-attr-name, $center-row-attr-value);
@@ -36,7 +36,7 @@
     $end-selector: srgrid-generate-attr-selector($row-attr-name, $end-row-attr-value);
     #{$end-selector} {
         justify-content: flex-end;
-        text-align: end;
+        text-align: right;
     }
 
     $top-selector: srgrid-generate-attr-selector($row-attr-name, $top-row-attr-value);
